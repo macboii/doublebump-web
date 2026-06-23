@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DoubleBump — Meet. Bump. Remember.</title>
+
+  <meta name="description" content="DoubleBump connects you with people in the real world — just bump phones twice. Bluetooth proximity + motion verification. No QR codes, no usernames. Free on iPhone." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Sunghoon Bang" />
+  <link rel="canonical" href="https://doublebump.app" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="DoubleBump" />
+  <meta property="og:title" content="DoubleBump — Meet. Bump. Remember." />
+  <meta property="og:description" content="Connect with people in the real world — just bump phones twice. No QR codes, no usernames. Just a physical moment." />
+  <meta property="og:url" content="https://doublebump.app" />
+  <meta property="og:image" content="https://doublebump.app/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DoubleBump — Meet. Bump. Remember." />
+  <meta name="twitter:description" content="Connect with people in the real world — just bump phones twice. No QR codes. Just a physical moment." />
+  <meta name="twitter:image" content="https://doublebump.app/og-image.png" />
+
+  <meta name="apple-itunes-app" content="app-id=6770075271" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "url": "https://doublebump.app",
+        "name": "DoubleBump",
+        "description": "Connect with people in the real world by bumping phones twice. No QR codes, no usernames.",
+        "publisher": {
+          "@type": "Person",
+          "name": "Sunghoon Bang",
+          "email": "bangcoderpro@gmail.com"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "url": "https://doublebump.app",
+        "name": "DoubleBump — Meet. Bump. Remember.",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".hero-sub", ".section-body", ".step-desc", ".layer-text"]
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "DoubleBump",
+        "operatingSystem": "iOS",
+        "applicationCategory": "SocialNetworkingApplication",
+        "description": "DoubleBump connects you with people in real life by bumping phones together twice. Uses Bluetooth Low Energy (BLE) for proximity verification within 30 cm, accelerometer for motion signature matching within ±400 ms, and GPS for Memory Map. Three simultaneous security layers prevent spoofing: BLE proximity, double-tap gesture, and synchronized motion signatures.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "downloadUrl": "https://apps.apple.com/app/id6770075271",
+        "url": "https://doublebump.app",
+        "featureList": "Bump to Connect — double-tap phones to create a real-world connection, Memory Map — pin every connection location on your personal map, Encounter Memory — add photo and 100-character note to each bump, Relationship Levels — Stranger to Soul Mate across 6 levels, Live Nearby Radar — Bluetooth scan up to 2 m to see nearby users, 8-bit Identity — pixel-art aesthetic throughout",
+        "author": {
+          "@type": "Person",
+          "name": "Sunghoon Bang",
+          "email": "bangcoderpro@gmail.com"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does DoubleBump work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Both users open DoubleBump and tap their phones together twice. Bluetooth Low Energy verifies proximity within 30 cm, motion sensors confirm both devices experienced the same physical collision within ±400 ms, and the double-tap gesture confirms mutual intent. All three layers must pass simultaneously to create a connection."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is DoubleBump safe from remote spoofing?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. DoubleBump requires three simultaneous verifications: Bluetooth proximity within 30 cm (physically impossible to fake remotely), a double-tap gesture confirming intent, and matching motion signatures from both phones within ±400 ms confirming a shared physical event."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the relationship levels in DoubleBump?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "DoubleBump has six relationship levels that unlock as you keep bumping: Stranger, Acquaintance, Friend, Close Friend, Best Friend, and Soul Mate."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is DoubleBump free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, DoubleBump is free to download on the App Store for iPhone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the Live Nearby Radar feature?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Live Nearby Radar uses Bluetooth to detect other DoubleBump users within approximately 2 meters. You can see their name before initiating a bump — useful in crowded or busy environments."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does DoubleBump need an internet connection to bump?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The bump itself happens over Bluetooth — no internet is required at the moment of connection. An internet connection is used to sync your Memory Map and connection history."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:     #111111;
+      --card:   #1a1a1a;
+      --card2:  #222222;
+      --yellow: #FFD60A;
+      --white:  #ffffff;
+      --gray:   #888888;
+      --dim:    #444444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── PIXEL FONT ─────────────────────────────── */
+    .pixel { font-family: "Press Start 2P", monospace; }
+
+    /* ─── HERO ───────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    /* ── Pixel Phone Canvas ── */
+    #phone-stage {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 28px;
+      height: 120px;
+    }
+
+    .phone {
+      display: grid;
+      grid-template-rows: repeat(14, 8px);
+      grid-template-columns: repeat(7, 8px);
+      gap: 0.8px;
+      transform-origin: bottom center;
+      transition: transform 0.06s ease-in;
+      image-rendering: pixelated;
+    }
+
+    .phone.mirrored { transform: scaleX(-1); }
+
+    .px { width: 7.2px; height: 7.2px; }
+    .px.on  { background: rgba(255,255,255,0.85); }
+    .px.dim { background: rgba(255,255,255,0.68); }
+    .px.off { background: transparent; }
+    .px.screen-lit { background: rgba(255,214,10,0.88); }
+
+    /* ── Title ── */
+    .hero-title {
+      font-size: clamp(22px, 5vw, 32px);
+      color: var(--yellow);
+      line-height: 1.5;
+      letter-spacing: 2px;
+    }
+
+    .hero-tagline {
+      font-size: clamp(9px, 2vw, 12px);
+      color: var(--white);
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+
+    .hero-sub {
+      font-size: clamp(14px, 2.5vw, 18px);
+      color: var(--gray);
+      max-width: 420px;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--yellow);
+      color: #000;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 16px 36px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .apple-icon { font-size: 1.3rem; }
+
+    /* ─── SECTION SHARED ─────────────────────────── */
+    section {
+      padding: 80px 24px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 9px;
+      color: var(--yellow);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(18px, 4vw, 26px);
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .section-body {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid #252525;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* ─── HOW IT WORKS ───────────────────────────── */
+    #how {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 48px;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px 24px;
+      text-align: left;
+      border: 1px solid #2a2a2a;
+    }
+
+    .step-num {
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      color: #000;
+      background: var(--yellow);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ─── MINI ANIMATION ─────────────────────────── */
+    #anim-stage {
+      position: relative;
+      height: 110px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    #flash {
+      position: absolute;
+      top: -8px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: white;
+      opacity: 0;
+      transition: opacity 0.08s;
+      pointer-events: none;
+    }
+
+    #connected-label {
+      position: absolute;
+      bottom: -4px;
+      font-family: "Press Start 2P", monospace;
+      font-size: 8px;
+      color: var(--yellow);
+      opacity: 0;
+      transition: opacity 0.3s ease-in;
+      white-space: nowrap;
+    }
+
+    /* ─── FEATURES GRID ──────────────────────────── */
+    #features { padding-top: 40px; }
+
+    .features-header { margin-bottom: 40px; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid #2a2a2a;
+      border-radius: 18px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .feature-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ─── SECURITY BANNER ────────────────────────── */
+    #security {
+      padding: 60px 24px;
+    }
+
+    .security-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .security-title {
+      font-size: clamp(16px, 3vw, 20px);
+      font-weight: 700;
+    }
+
+    .security-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .layer {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .layer-badge {
+      font-family: "Press Start 2P", monospace;
+      font-size: 7px;
+      color: #000;
+      background: var(--yellow);
+      padding: 4px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .layer-text {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .layer-text strong { color: var(--white); }
+
+    /* ─── CTA ────────────────────────────────────── */
+    #cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+      padding: 80px 24px 100px;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      border-top: 1px solid #1e1e1e;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--dim);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: var(--gray); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: #333;
+    }
+
+    /* ─── PIXEL PHONE (CSS version for animation) ── */
+    .css-phone {
+      display: grid;
+      grid-template-rows: repeat(14, 7.5px);
+      grid-template-columns: repeat(7, 7.5px);
+      gap: 0.8px;
+      transform-origin: bottom center;
+      image-rendering: pixelated;
+    }
+
+    .css-phone.mirror { transform: scaleX(-1); }
+
+    .p { width: 6.7px; height: 6.7px; border-radius: 0.5px; }
+    .p.w  { background: rgba(255,255,255,0.85); }
+    .p.wb { background: rgba(255,255,255,1); }   /* bright top */
+    .p.e  { background: transparent; }
+    .p.s  { background: transparent; }            /* screen area — JS sets yellow */
+    .p.sy { background: rgba(255,214,10,0.88); }  /* screen lit */
+
+    .platform-note {
+      font-size: 12px;
+      color: var(--dim);
+      margin-top: -8px;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 500px) {
+      .security-inner { padding: 24px 20px; }
+      .step { padding: 16px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<main>
+<!-- ═══════════════════════════════════════════════ HERO -->
+<section id="hero">
+
+  <!-- Pixel Phone Animation -->
+  <div id="phone-stage">
+    <div id="flash"></div>
+    <div class="css-phone" id="phoneL"></div>
+    <div class="css-phone mirror" id="phoneR"></div>
+    <div id="connected-label">Connected!</div>
+  </div>
+
+  <!-- Title -->
+  <div>
+    <h1 class="pixel hero-title">DOUBLE<br>BUMP</h1>
+    <p class="pixel hero-tagline">Meet. Bump. Remember.</p>
+  </div>
+
+  <p class="hero-sub">
+    Connect with people in the real world — just bump phones twice.
+    No QR codes. No usernames. Just a physical moment.
+  </p>
+
+  <a class="btn-primary" href="https://apps.apple.com/app/id6770075271" target="_blank">
+    <span class="apple-icon"></span>
+    Download on the App Store
+  </a>
+  <p class="platform-note">Android — Coming Soon</p>
+
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════ HOW IT WORKS -->
+<section id="how">
+  <div class="pixel section-label">How it works</div>
+  <h2 class="section-title">Three steps.<br>One real connection.</h2>
+
+  <!-- Mini animation (same pixel phones, smaller) -->
+  <div id="anim-stage">
+    <div class="css-phone" id="phone2L" style="transform-origin:bottom center"></div>
+    <div class="css-phone mirror" id="phone2R" style="transform-origin:bottom center"></div>
+  </div>
+
+  <div class="steps">
+    <div class="step" id="step1">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <div class="step-title">Both open DoubleBump</div>
+        <div class="step-desc">You and your friend each tap into the Bump screen. That's it.</div>
+      </div>
+    </div>
+    <div class="step" id="step2">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <div class="step-title">Tap phones together — twice</div>
+        <div class="step-desc">The double tap is both the gesture and the proof. BLE makes sure you're within 30 cm.</div>
+      </div>
+    </div>
+    <div class="step" id="step3">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <div class="step-title">You're connected!</div>
+        <div class="step-desc">Screens glow yellow. Your connection is saved — forever on your map.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pixel section-label" style="margin-top:48px; font-size:8px; color:var(--dim)">
+    ⚠ &nbsp; Both phones must be moving. One-sided won't work.
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════ FEATURES -->
+<section id="features">
+  <div class="features-header">
+    <div class="pixel section-label">Features</div>
+    <h2 class="section-title">Your real-world social map.</h2>
+    <p class="section-body">
+      Every bump builds a permanent memory. See your connections, where you met, and every moment you've shared.
+    </p>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Bump to Connect</div>
+      <div class="feature-desc">
+        Double-tap phones together to create a real-world connection.
+        No usernames, no follows — just a physical moment.
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🗺️</div>
+      <div class="feature-title">Memory Map</div>
+      <div class="feature-desc">
+        Every bump pins a location on your personal map.
+        Relive exactly where you met each person.
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📖</div>
+      <div class="feature-title">Encounter Memory</div>
+      <div class="feature-desc">
+        Add a photo and a 100-character note to each bump.
+        Private between you two — no public feed.
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔥</div>
+      <div class="feature-title">Relationship Levels</div>
+      <div class="feature-desc">
+        Stranger → Acquaintance → Friend → Close Friend → Best Friend → Soul Mate.
+        Levels unlock as you keep bumping.
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📡</div>
+      <div class="feature-title">Live Nearby Radar</div>
+      <div class="feature-desc">
+        See who around you has DoubleBump open before you bump.
+        Bluetooth scans up to 2 m — you see a name, then you act.
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎮</div>
+      <div class="feature-title">8-bit Identity</div>
+      <div class="feature-desc">
+        Pixel-art animations. Retro font. Every interaction is tactile and playful — by design.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════ SECURITY -->
+<div id="security">
+  <div class="security-inner">
+    <div>
+      <div class="pixel section-label">Security Model</div>
+      <h2 class="section-title security-title">Three layers. No spoofing.</h2>
+      <p class="section-body" style="margin-top:8px">
+        A connection can only happen if all three layers pass simultaneously.
+      </p>
+    </div>
+    <div class="security-layers">
+      <div class="layer">
+        <div class="layer-badge">BLE</div>
+        <div class="layer-text">
+          <strong>Proximity proof</strong> — Bluetooth RSSI must exceed −40 dBm (~30 cm).
+          Remote spoofing is physically impossible.
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">BUMP</div>
+        <div class="layer-text">
+          <strong>Intent proof</strong> — The double-tap gesture is required.
+          A single accidental nudge will never create a connection.
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">MOTION</div>
+        <div class="layer-text">
+          <strong>Shared event proof</strong> — Motion signatures from both phones are compared.
+          Both devices must have experienced the same physical collision within ±400 ms.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ CTA -->
+<section id="cta">
+  <h2 class="pixel hero-title" style="font-size:clamp(18px,4vw,26px)">
+    Ready to bump?
+  </h2>
+  <p class="hero-sub">
+    Available on iPhone. Free to download.
+  </p>
+  <a class="btn-primary" href="https://apps.apple.com/app/id6770075271" target="_blank">
+    <span class="apple-icon"></span>
+    Download on the App Store
+  </a>
+  <p class="platform-note">Android — Coming Soon</p>
+</section>
+
+</main>
+<!-- ═══════════════════════════════════════════════ FOOTER -->
+<footer>
+  <nav class="footer-links" aria-label="Footer">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="mailto:bangcoderpro@gmail.com">Contact</a>
+  </nav>
+  <div class="footer-copy">© 2026 DoubleBump · bangcoderpro@gmail.com</div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════ PIXEL PHONE BUILDER + ANIMATION -->
+<script>
+  // 7×14 pixel grid — same as SplashView / BumpTutorialSheet in Swift
+  // 'b' = bright white (top bump area), 'w' = white, 'e' = empty, 's' = screen
+  const GRID = [
+    [0,1,1,1,1,1,0],  // 0  top cap       → bright
+    [1,1,1,1,1,1,1],  // 1  top bezel      → bright
+    [1,1,1,1,1,1,1],  // 2  camera row     → bright
+    [1,0,0,0,0,0,1],  // 3  screen start   → dim / screen
+    [1,0,0,0,0,0,1],
+    [1,0,0,0,0,0,1],
+    [1,0,0,0,0,0,1],
+    [1,0,0,0,0,0,1],
+    [1,0,0,0,0,0,1],
+    [1,0,0,0,0,0,1],
+    [1,0,0,0,0,0,1],  // 10 screen end
+    [1,1,1,1,1,1,1],  // 11 bottom bezel   → dim
+    [1,1,0,1,0,1,1],  // 12 home button row
+    [0,1,1,1,1,1,0],  // 13 bottom cap
+  ];
+
+  function buildPhone(el, pxSize = 7.5) {
+    el.style.gridTemplateRows    = `repeat(14, ${pxSize}px)`;
+    el.style.gridTemplateColumns = `repeat(7, ${pxSize}px)`;
+    el.style.gap = '0.8px';
+
+    const cells = [];
+    for (let row = 0; row < 14; row++) {
+      for (let col = 0; col < 7; col++) {
+        const d = document.createElement('div');
+        d.style.width  = (pxSize - 0.8) + 'px';
+        d.style.height = (pxSize - 0.8) + 'px';
+        d.style.borderRadius = '0.5px';
+
+        const filled = GRID[row][col] === 1;
+        const isScreen = row >= 3 && row <= 10 && col >= 1 && col <= 5;
+
+        if (filled) {
+          const brightness = row < 3 ? 1.0 : 0.82;
+          d.style.background = `rgba(255,255,255,${brightness})`;
+          d.dataset.type = 'body';
+        } else if (isScreen) {
+          d.style.background = 'transparent';
+          d.dataset.type = 'screen';
+        }
+        // else: truly empty corner pixels — stay transparent
+
+        cells.push(d);
+        el.appendChild(d);
+      }
+    }
+    return cells;
+  }
+
+  function setScreen(cells, lit) {
+    cells.forEach(d => {
+      if (d.dataset.type === 'screen') {
+        d.style.background = lit ? 'rgba(255,214,10,0.88)' : 'transparent';
+      }
+    });
+  }
+
+  // ─── Build Hero phones ───────────────────────────────────────
+  const pL = document.getElementById('phoneL');
+  const pR = document.getElementById('phoneR');
+  const flash = document.getElementById('flash');
+  const connLabel = document.getElementById('connected-label');
+
+  buildPhone(pL, 7.5);
+  buildPhone(pR, 7.5);
+
+  // ─── Build How-it-works phones ──────────────────────────────
+  const p2L = document.getElementById('phone2L');
+  const p2R = document.getElementById('phone2R');
+  const cells2L = buildPhone(p2L, 7);
+  const cells2R = buildPhone(p2R, 7);
+
+  // Step highlight
+  const steps = [
+    document.getElementById('step1'),
+    document.getElementById('step2'),
+    document.getElementById('step3'),
+  ];
+  function activateStep(n) {
+    steps.forEach((s, i) => {
+      const num = s.querySelector('.step-num');
+      if (i === n) {
+        s.style.borderColor = '#3a3a1a';
+        s.style.background = '#1e1e10';
+        num.style.background = 'var(--yellow)';
+        num.style.color = '#000';
+      } else {
+        s.style.borderColor = '#2a2a2a';
+        s.style.background = 'var(--card)';
+        num.style.background = '#2a2a2a';
+        num.style.color = '#666';
+      }
+    });
+  }
+  activateStep(0);
+
+  // ─── Animation helpers ───────────────────────────────────────
+  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  function approach(el1, el2, maxGap, minGap, dur, easing) {
+    const parent = el1.closest('#phone-stage') || el1.closest('#anim-stage');
+    if (!parent) return;
+    const start = Date.now();
+    const diff = maxGap - minGap;
+    return new Promise(res => {
+      function tick() {
+        const t = Math.min((Date.now() - start) / dur, 1);
+        const e = easing === 'in' ? t * t : 1 - (1 - t) * (1 - t);
+        parent.style.gap = (maxGap - diff * e) + 'px';
+        if (t < 1) requestAnimationFrame(tick);
+        else res();
+      }
+      tick();
+    });
+  }
+
+  function spring(el1, el2, fromGap, toGap, dur) {
+    const parent = el1.closest('#phone-stage') || el1.closest('#anim-stage');
+    if (!parent) return;
+    const start = Date.now();
+    const diff = toGap - fromGap;
+    return new Promise(res => {
+      function tick() {
+        const t = Math.min((Date.now() - start) / dur, 1);
+        const s = 1 - Math.exp(-6 * t) * Math.cos(8 * t);
+        parent.style.gap = (fromGap + diff * Math.min(s, 1)) + 'px';
+        if (t < 1) requestAnimationFrame(tick);
+        else res();
+      }
+      tick();
+    });
+  }
+
+  // ─── Hero animation loop ─────────────────────────────────────
+  async function heroLoop() {
+    const stage = document.getElementById('phone-stage');
+    while (true) {
+      stage.style.gap = '28px';
+      flash.style.opacity = '0';
+      connLabel.style.opacity = '0';
+
+      // ① approach
+      await approach(pL, pR, 28, 6, 200, 'in');
+      // ② impact flash + scale
+      flash.style.opacity = '1';
+      pL.style.transform = 'rotate(10deg) scale(1.07)';
+      pR.style.transform = 'scaleX(-1) rotate(10deg) scale(1.07)';
+      await wait(80);
+      // ③ recoil
+      flash.style.opacity = '0';
+      await spring(pL, pR, 6, 28, 220);
+      pL.style.transform = 'rotate(0deg) scale(1)';
+      pR.style.transform = 'scaleX(-1) rotate(0deg) scale(1)';
+      await wait(140);
+
+      // ④ second approach
+      await approach(pL, pR, 28, 6, 180, 'in');
+      flash.style.opacity = '1';
+      pL.style.transform = 'rotate(10deg) scale(1.09)';
+      pR.style.transform = 'scaleX(-1) rotate(10deg) scale(1.09)';
+      await wait(80);
+      // ⑤ recoil + connected!
+      flash.style.opacity = '0';
+      await spring(pL, pR, 6, 28, 220);
+      pL.style.transform = 'rotate(0deg) scale(1)';
+      pR.style.transform = 'scaleX(-1) rotate(0deg) scale(1)';
+      connLabel.style.opacity = '1';
+      await wait(1600);
+
+      connLabel.style.opacity = '0';
+      await wait(400);
+      await wait(800);
+    }
+  }
+
+  // ─── How section animation loop ─────────────────────────────
+  async function howLoop() {
+    const stage = document.getElementById('anim-stage');
+    while (true) {
+      // ① idle — step 1
+      stage.style.gap = '26px';
+      setScreen(cells2L, false);
+      setScreen(cells2R, false);
+      activateStep(0);
+      await wait(800);
+
+      // ② approach — step 2
+      activateStep(1);
+      await approach(p2L, p2R, 26, 6, 200, 'in');
+      p2L.style.transition = 'transform 60ms ease-out';
+      p2R.style.transition = 'transform 60ms ease-out';
+      p2L.style.transform = 'rotate(10deg) scale(1.07)';
+      p2R.style.transform = 'scaleX(-1) rotate(10deg) scale(1.07)';
+      await wait(70);
+      await spring(p2L, p2R, 6, 26, 200);
+      p2L.style.transform = 'rotate(0deg)';
+      p2R.style.transform = 'scaleX(-1) rotate(0deg)';
+      await wait(140);
+
+      // second tap
+      await approach(p2L, p2R, 26, 6, 180, 'in');
+      p2L.style.transform = 'rotate(10deg) scale(1.1)';
+      p2R.style.transform = 'scaleX(-1) rotate(10deg) scale(1.1)';
+      await wait(70);
+      await spring(p2L, p2R, 6, 26, 200);
+      p2L.style.transform = 'rotate(0deg)';
+      p2R.style.transform = 'scaleX(-1) rotate(0deg)';
+
+      // ③ connected — step 3
+      setScreen(cells2L, true);
+      setScreen(cells2R, true);
+      activateStep(2);
+      await wait(1800);
+
+      // reset
+      setScreen(cells2L, false);
+      setScreen(cells2R, false);
+      await wait(400);
+    }
+  }
+
+  // Start animations
+  heroLoop();
+  howLoop();
+</script>
+</body>
+</html>
