@@ -15,10 +15,16 @@ Static landing page for the DoubleBump iOS app. Single `index.html` file with em
 
 ```
 index.html        # entire site — HTML + CSS + JS in one file
+privacy.html      # Privacy Policy page
+terms.html        # Terms of Service page
+logo.png          # 1024×1024 app icon (also used for favicon + OG image)
 CLAUDE.md         # this file
 .claude/
-  commands/       # slash commands
+  commands/       # slash commands (legacy — prefer skills/)
+  skills/         # slash skills: gitpush, update-docs
   rules/          # detailed rule files
+  settings.json   # Stop hook — doc maintenance reminder
+  settings.local.json  # permission allowlist
 ```
 
 ## Key Rules

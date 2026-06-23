@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\":\"[meta-maintenance] 코드 변경이 있었다면 CLAUDE.md 및 .claude/rules/ 파일을 업데이트했는지 확인하세요.\"}'",
+            "statusMessage": "문서 업데이트 체크 중..."
+          }
+        ]
+      }
+    ]
+  }
+}
