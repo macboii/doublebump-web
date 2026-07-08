@@ -17,6 +17,8 @@ Static landing page for the DoubleBump iOS app. Single `index.html` file with em
 index.html        # entire site — HTML + CSS + JS in one file
 privacy.html      # Privacy Policy page
 terms.html        # Terms of Service page
+delete-account.html  # Account deletion instructions page
+child-safety.html # Child Safety Standards page (Google Play compliance)
 logo.png          # 1024×1024 app icon (also used for favicon + OG image)
 CLAUDE.md         # this file
 .claude/
