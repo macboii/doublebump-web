@@ -24,7 +24,8 @@ app-ads.txt       # AdMob publisher verification
 robots.txt        # crawler rules (allows AI/answer-engine bots) + sitemap ref
 sitemap.xml       # URL list for search engines
 assets/
-  features/       # landscape feature banner WebP (#showcase section, OG image)
+  og-image.png    # 1200×630 social share image (source: og-image.source.html)
+  features/       # landscape feature banner WebP (#showcase section)
   screens/        # portrait app screenshot WebP (#screens section)
 CLAUDE.md         # this file
 .claude/

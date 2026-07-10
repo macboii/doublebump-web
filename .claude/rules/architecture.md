@@ -32,7 +32,7 @@ Order inside `index.html`:
 ## SEO / structured data
 
 The `<head>` carries the full SEO surface — keep these in sync when content changes:
-- Meta: description, keywords, canonical, Open Graph + Twitter cards (`og:image`/`twitter:image` point to `assets/features/feature-1.webp`), `og:locale` en_US + `ko_KR` alternate, `theme-color`.
+- Meta: description, keywords, canonical, Open Graph + Twitter cards (`og:image`/`twitter:image` point to the dedicated 1200×630 `assets/og-image.png`; regenerate it from `assets/og-image.source.html` via headless Chrome `--screenshot`), `og:locale` en_US + `ko_KR` alternate, `theme-color`.
 - One JSON-LD `@graph` with: `WebSite`, `WebPage` (+ `speakable`, `dateModified`), `SoftwareApplication` (+ `screenshot` array of the real `assets/screens/*.webp`, `downloadUrl` for both stores), `HowTo`, `FAQPage`. The `FAQPage` answers mirror the visible `#faq` copy — update both together.
 - `sitemap.xml` + `robots.txt` live at root; `robots.txt` explicitly allows AI/answer-engine crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …) for AEO/GEO. Add any new page to `sitemap.xml`.
 - Dates in structured data are absolute (`2026-07-10`); bump `dateModified`/`lastmod` on meaningful content changes.

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1200px; height:630px; }
+  body {
+    background:#111111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:96px;
+    font-family:"Press Start 2P", monospace;
+    overflow:hidden;
+    position:relative;
+  }
+  /* faint corner glow */
+  body::before {
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 42%, rgba(255,214,10,0.10), transparent 42%);
+    pointer-events:none;
+  }
+
+  .stage { position:relative; display:flex; align-items:flex-start; gap:6px; height:250px; }
+  .phone {
+    display:grid;
+    grid-template-rows:repeat(14,17px);
+    grid-template-columns:repeat(7,17px);
+    gap:1px;
+    transform-origin:bottom center;
+  }
+  .px { width:16px; height:16px; }
+
+  .spark {
+    position:absolute;
+    top:-6px; left:50%; margin-left:-19px;
+    width:38px; height:38px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 30px 12px rgba(255,255,255,0.75),
+               0 0 70px 26px rgba(255,214,10,0.45);
+  }
+  /* pixel spark rays */
+  .ray { position:absolute; background:#FFD60A; }
+
+  .text { display:flex; flex-direction:column; }
+  .title {
+    font-size:66px;
+    color:#FFD60A;
+    line-height:1.32;
+    letter-spacing:3px;
+    text-shadow:0 5px 0 #8a6800;
+  }
+  .tag { font-size:21px; color:#ffffff; margin-top:30px; letter-spacing:1px; }
+  .sub { font-size:14px; color:#8a8a8a; margin-top:24px; line-height:1.9; }
+  .pill {
+    margin-top:30px;
+    font-size:12px;
+    color:#111;
+    background:#FFD60A;
+    display:inline-block;
+    padding:12px 16px;
+    border-radius:7px;
+    width:max-content;
+    letter-spacing:1px;
+  }
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="phone" id="pL"></div>
+    <div class="phone" id="pR"></div>
+    <div class="spark"></div>
+  </div>
+
+  <div class="text">
+    <div class="title">DOUBLE<br>BUMP</div>
+    <div class="tag">Meet. Bump. Remember.</div>
+    <div class="sub">Bump phones twice<br>to connect — in real life.</div>
+    <div class="pill">FREE &nbsp;·&nbsp; iOS &amp; ANDROID</div>
+  </div>
+
+  <script>
+    // Same 7×14 grid as the site's pixel phone
+    const GRID = [
+      [0,1,1,1,1,1,0],
+      [1,1,1,1,1,1,1],
+      [1,1,1,1,1,1,1],
+      [1,0,0,0,0,0,1],
+      [1,0,0,0,0,0,1],
+      [1,0,0,0,0,0,1],
+      [1,0,0,0,0,0,1],
+      [1,0,0,0,0,0,1],
+      [1,0,0,0,0,0,1],
+      [1,0,0,0,0,0,1],
+      [1,0,0,0,0,0,1],
+      [1,1,1,1,1,1,1],
+      [1,1,0,1,0,1,1],
+      [0,1,1,1,1,1,0],
+    ];
+    function build(el, mirror){
+      for(let r=0;r<14;r++){
+        for(let c=0;c<7;c++){
+          const col = mirror ? 6-c : c;
+          const d = document.createElement('div');
+          d.className = 'px';
+          const filled = GRID[r][col] === 1;
+          const isScreen = r>=3 && r<=10 && col>=1 && col<=5;
+          if (filled) {
+            d.style.background = 'rgba(255,255,255,' + (r<3 ? 1 : 0.82) + ')';
+          } else if (isScreen) {
+            d.style.background = 'rgba(255,214,10,0.92)'; // lit = connected
+          } else {
+            d.style.background = 'transparent';
+          }
+          el.appendChild(d);
+        }
+      }
+    }
+    const L = document.getElementById('pL');
+    const R = document.getElementById('pR');
+    build(L, false);
+    build(R, true);
+    // lean the tops toward each other (bump point)
+    L.style.transform = 'rotate(9deg)';
+    R.style.transform = 'rotate(-9deg)';
+  </script>
+</body>
+</html>
