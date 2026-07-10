@@ -19,9 +19,13 @@ privacy.html      # Privacy Policy page
 terms.html        # Terms of Service page
 delete-account.html  # Account deletion instructions page
 child-safety.html # Child Safety Standards page (Google Play compliance)
-logo.png          # 1024×1024 app icon (also used for favicon + OG image)
+logo.png          # 1024×1024 app icon (favicon + JSON-LD image)
+app-ads.txt       # AdMob publisher verification
+robots.txt        # crawler rules (allows AI/answer-engine bots) + sitemap ref
+sitemap.xml       # URL list for search engines
 assets/
-  features/       # feature banner WebP screenshots (#showcase section)
+  features/       # landscape feature banner WebP (#showcase section, OG image)
+  screens/        # portrait app screenshot WebP (#screens section)
 CLAUDE.md         # this file
 .claude/
   commands/       # slash commands (legacy — prefer skills/)

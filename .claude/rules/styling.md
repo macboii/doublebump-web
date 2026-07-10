@@ -34,6 +34,7 @@ All colors are defined in `:root`. Never hardcode hex values inline — always u
 - Security inner panel: `border-radius: 20px`
 
 - Showcase banners (`.showcase-shot`): same card frame with `overflow: hidden; line-height: 0`; images are `width: 100%; height: auto` inside a `repeat(auto-fit, minmax(300px, 1fr))` grid.
+- App screenshots (`.screen-frame`): `border-radius: 22px` phone frame, same `overflow: hidden; line-height: 0`; each `.screen-item` stacks the frame over a `.screen-cap-title` + `.screen-cap-desc` caption in a `repeat(auto-fit, minmax(180px, 1fr))` grid.
 
 ## Buttons
 

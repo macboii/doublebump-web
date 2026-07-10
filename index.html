@@ -16,14 +16,19 @@
   <meta property="og:title" content="DoubleBump — Meet. Bump. Remember." />
   <meta property="og:description" content="Connect with real people by bumping phones twice. BLE proximity + motion verification. No QR codes, no usernames. Free on iOS and Android." />
   <meta property="og:url" content="https://doublebump.com" />
-  <meta property="og:image" content="https://doublebump.com/logo.png" />
+  <meta property="og:image" content="https://doublebump.com/assets/features/feature-1.webp" />
+  <meta property="og:image:alt" content="DoubleBump — meet in real life by bumping phones twice." />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ko_KR" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="DoubleBump — Meet. Bump. Remember." />
   <meta name="twitter:description" content="Connect with real people in real life — just bump phones twice. BLE proximity + motion verification. Free on iOS and Android." />
-  <meta name="twitter:image" content="https://doublebump.com/logo.png" />
+  <meta name="twitter:image" content="https://doublebump.com/assets/features/feature-1.webp" />
+  <meta name="twitter:image:alt" content="DoubleBump — meet in real life by bumping phones twice." />
 
+  <meta name="application-name" content="DoubleBump" />
+  <meta name="theme-color" content="#111111" />
   <meta name="apple-itunes-app" content="app-id=6770075271" />
 
   <script type="application/ld+json">
@@ -35,6 +40,7 @@
         "url": "https://doublebump.com",
         "name": "DoubleBump",
         "description": "Connect with real people in the real world by bumping phones twice. Free on iOS and Android. No QR codes, no usernames.",
+        "inLanguage": ["en", "ko"],
         "publisher": {
           "@type": "Organization",
           "name": "DoubleBump",
@@ -45,6 +51,9 @@
         "@type": "WebPage",
         "url": "https://doublebump.com",
         "name": "DoubleBump — Meet. Bump. Remember.",
+        "inLanguage": "en",
+        "dateModified": "2026-07-10",
+        "primaryImageOfPage": "https://doublebump.com/assets/features/feature-1.webp",
         "speakable": {
           "@type": "SpeakableSpecification",
           "cssSelector": [".hero-sub", ".section-body", ".step-desc", ".layer-text", ".faq-a"]
@@ -61,8 +70,21 @@
           "price": "0",
           "priceCurrency": "USD"
         },
-        "downloadUrl": "https://apps.apple.com/app/id6770075271",
+        "downloadUrl": [
+          "https://apps.apple.com/app/id6770075271",
+          "https://play.google.com/store/apps/details?id=com.doublebump.android"
+        ],
         "url": "https://doublebump.com",
+        "image": "https://doublebump.com/logo.png",
+        "screenshot": [
+          "https://doublebump.com/assets/screens/screen-bump.webp",
+          "https://doublebump.com/assets/screens/screen-feed.webp",
+          "https://doublebump.com/assets/screens/screen-connection.webp",
+          "https://doublebump.com/assets/screens/screen-levels.webp",
+          "https://doublebump.com/assets/screens/screen-profile.webp",
+          "https://doublebump.com/assets/screens/screen-map.webp"
+        ],
+        "inLanguage": ["en", "ko"],
         "featureList": "Bump to Connect — double-tap phones to create a real-world connection, Memory Map — pin every connection location on your personal map, Encounter Memory — add photo and 100-character note to each bump, Relationship Levels — Stranger to Soul Mate across 6 levels, Live Nearby Radar — Bluetooth scan up to 2 m to see nearby users, 8-bit Identity — pixel-art aesthetic throughout, Cross-platform — iPhone and Android users can bump with each other",
         "author": {
           "@type": "Organization",
@@ -218,6 +240,7 @@
 
     /* ── Pixel Phone Canvas ── */
     #phone-stage {
+      position: relative;
       display: flex;
       align-items: flex-start;
       justify-content: center;
@@ -399,10 +422,13 @@
     #flash {
       position: absolute;
       top: -8px;
+      left: 50%;
+      margin-left: -9px;
       width: 18px;
       height: 18px;
       border-radius: 50%;
       background: white;
+      box-shadow: 0 0 14px 4px rgba(255,255,255,0.55);
       opacity: 0;
       transition: opacity 0.08s;
       pointer-events: none;
@@ -485,6 +511,56 @@
       display: block;
       width: 100%;
       height: auto;
+    }
+
+    /* ─── APP SCREENS (phone screenshots) ────────── */
+    #screens {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .screens-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 300px));
+      justify-content: center;
+      gap: 48px 64px;
+      margin-top: 44px;
+      width: 100%;
+    }
+
+    .screen-item {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .screen-frame {
+      border: 1px solid #2a2a2a;
+      border-radius: 22px;
+      overflow: hidden;
+      background: var(--card);
+      line-height: 0;
+    }
+
+    .screen-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .screen-cap-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .screen-cap-desc {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.6;
+      padding: 0 4px;
     }
 
     /* ─── SECURITY BANNER ────────────────────────── */
@@ -650,6 +726,7 @@
       .security-inner { padding: 24px 20px; }
       .step { padding: 16px 18px; }
       .lang-toggle { top: 12px; right: 12px; padding: 8px 9px; }
+      .screens-grid { grid-template-columns: minmax(0, 280px); gap: 36px; }
     }
   </style>
 </head>
@@ -682,11 +759,11 @@
 
   <div class="store-buttons">
     <a class="btn-primary" href="https://apps.apple.com/app/id6770075271" target="_blank" rel="noopener">
-      <span class="apple-icon"></span>
+      <svg class="apple-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35c-1.09-.46-2.09-.48-3.24 0c-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8c1.18-.24 2.31-.93 3.57-.84c1.51.12 2.65.72 3.4 1.8c-3.12 1.87-2.38 5.98.48 7.13c-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25c.29 2.58-2.34 4.5-3.74 4.25"/></svg>
       App Store
     </a>
-    <a class="btn-primary" href="#">
-      <span class="android-icon">▶</span>
+    <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.doublebump.android" target="_blank" rel="noopener">
+      <svg class="android-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m22.018 13.298l-3.919 2.218l-3.515-3.493l3.543-3.521l3.891 2.202a1.49 1.49 0 0 1 0 2.594M1.337.924a1.5 1.5 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087zm12.207 10.065l3.258-3.238L3.45.195a1.47 1.47 0 0 0-.946-.179zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54z"/></svg>
       Google Play
     </a>
   </div>
@@ -828,6 +905,70 @@
 
 <hr class="divider" />
 
+<!-- ═══════════════════════════════════════════════ APP SCREENS -->
+<section id="screens">
+  <div class="pixel section-label">The App</div>
+  <h2 class="section-title" data-i18n="screens.title">A closer look inside.</h2>
+
+  <div class="screens-grid">
+    <div class="screen-item">
+      <div class="screen-frame">
+        <img src="assets/screens/screen-bump.webp" width="640" height="1386" loading="lazy" decoding="async"
+             alt="DoubleBump bump screen showing a nearby user ready to connect." />
+      </div>
+      <div class="screen-cap-title" data-i18n="sc.bump.t">Bump Screen</div>
+      <div class="screen-cap-desc" data-i18n="sc.bump.d">See who's nearby and bump twice to connect — no QR, no search.</div>
+    </div>
+
+    <div class="screen-item">
+      <div class="screen-frame">
+        <img src="assets/screens/screen-feed.webp" width="640" height="1386" loading="lazy" decoding="async"
+             alt="DoubleBump live feed of recent bumps pinned on a map." />
+      </div>
+      <div class="screen-cap-title" data-i18n="sc.feed.t">Live Feed</div>
+      <div class="screen-cap-desc" data-i18n="sc.feed.d">Every bump and new connection, pinned to where it happened.</div>
+    </div>
+
+    <div class="screen-item">
+      <div class="screen-frame">
+        <img src="assets/screens/screen-connection.webp" width="640" height="1386" loading="lazy" decoding="async"
+             alt="A DoubleBump connection profile with bump stats and history." />
+      </div>
+      <div class="screen-cap-title" data-i18n="sc.conn.t">Connection Profile</div>
+      <div class="screen-cap-desc" data-i18n="sc.conn.d">Bump stats, friendship progress, and each person's shared links.</div>
+    </div>
+
+    <div class="screen-item">
+      <div class="screen-frame">
+        <img src="assets/screens/screen-levels.webp" width="640" height="1386" loading="lazy" decoding="async"
+             alt="DoubleBump friendship level ladder from Stranger to Best Friend." />
+      </div>
+      <div class="screen-cap-title" data-i18n="sc.levels.t">Friendship Levels</div>
+      <div class="screen-cap-desc" data-i18n="sc.levels.d">Climb from Stranger to Best Friend as your bumps add up.</div>
+    </div>
+
+    <div class="screen-item">
+      <div class="screen-frame">
+        <img src="assets/screens/screen-profile.webp" width="640" height="1386" loading="lazy" decoding="async"
+             alt="A DoubleBump user profile with bump stats and shareable links." />
+      </div>
+      <div class="screen-cap-title" data-i18n="sc.profile.t">Your Profile</div>
+      <div class="screen-cap-desc" data-i18n="sc.profile.d">Your bump stats, personal Bump Map, and the links you share.</div>
+    </div>
+
+    <div class="screen-item">
+      <div class="screen-frame">
+        <img src="assets/screens/screen-map.webp" width="640" height="1386" loading="lazy" decoding="async"
+             alt="DoubleBump Bump Map showing a timeline of past meetings with notes." />
+      </div>
+      <div class="screen-cap-title" data-i18n="sc.map.t">Bump Map</div>
+      <div class="screen-cap-desc" data-i18n="sc.map.d">A timeline map of every meeting — dates, places, and notes.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
 <!-- ═══════════════════════════════════════════════ SECURITY -->
 <div id="security">
   <div class="security-inner">
@@ -908,11 +1049,11 @@
   </p>
   <div class="store-buttons">
     <a class="btn-primary" href="https://apps.apple.com/app/id6770075271" target="_blank" rel="noopener">
-      <span class="apple-icon"></span>
+      <svg class="apple-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35c-1.09-.46-2.09-.48-3.24 0c-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8c1.18-.24 2.31-.93 3.57-.84c1.51.12 2.65.72 3.4 1.8c-3.12 1.87-2.38 5.98.48 7.13c-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25c.29 2.58-2.34 4.5-3.74 4.25"/></svg>
       App Store
     </a>
-    <a class="btn-primary" href="#">
-      <span class="android-icon">▶</span>
+    <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.doublebump.android" target="_blank" rel="noopener">
+      <svg class="android-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m22.018 13.298l-3.919 2.218l-3.515-3.493l3.543-3.521l3.891 2.202a1.49 1.49 0 0 1 0 2.594M1.337.924a1.5 1.5 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087zm12.207 10.065l3.258-3.238L3.45.195a1.47 1.47 0 0 0-.946-.179zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54z"/></svg>
       Google Play
     </a>
   </div>
@@ -940,6 +1081,20 @@
       "hero.sub": "실제로 만난 사람과 연결되세요 — 폰을 두 번 부딪히기만 하면 끝. QR 코드도, 아이디도 필요 없어요. 오직 진짜 만남의 순간뿐.",
 
       "show.title": "DoubleBump을 눈으로 확인하세요.",
+
+      "screens.title": "앱 속을 자세히 들여다보세요.",
+      "sc.bump.t": "범프 화면",
+      "sc.bump.d": "주변에 누가 있는지 확인하고 두 번 부딪혀 연결하세요 — QR도, 검색도 없이.",
+      "sc.feed.t": "라이브 피드",
+      "sc.feed.d": "모든 범프와 새로운 연결을 만난 장소와 함께 보여줍니다.",
+      "sc.conn.t": "연결 프로필",
+      "sc.conn.d": "각 사람의 범프 통계, 친밀도 진행 상황, 공유된 링크를 확인하세요.",
+      "sc.levels.t": "친밀도 레벨",
+      "sc.levels.d": "범프가 쌓일수록 낯선 사람에서 베스트 프렌드까지 올라갑니다.",
+      "sc.profile.t": "내 프로필",
+      "sc.profile.d": "내 범프 통계, 나만의 범프 맵, 그리고 공유할 링크.",
+      "sc.map.t": "범프 맵",
+      "sc.map.d": "모든 만남을 날짜·장소·메모와 함께 타임라인 지도로.",
 
       "how.title": "단 세 단계로<br>진짜 인연을 만드세요.",
       "how.step1.title": "둘 다 DoubleBump 열기",
@@ -1125,125 +1280,110 @@
   }
   activateStep(0);
 
-  // ─── Animation helpers ───────────────────────────────────────
+  // ─── Animation engine ────────────────────────────────────────
+  // A bump is driven by ONE progress value (0 = apart, 1 = touching). Gap,
+  // inward tilt, and impact scale are all derived from it every frame, so the
+  // phones lean in and spring back as a single motion — mirroring the
+  // progress-driven SplashView.swift, instead of animating the gap alone.
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-  function approach(el1, el2, maxGap, minGap, dur, easing) {
-    const parent = el1.closest('#phone-stage') || el1.closest('#anim-stage');
-    if (!parent) return;
-    const start = Date.now();
-    const diff = maxGap - minGap;
+  const easeIn  = t => t * t;                       // accelerate into contact
+  const easeOut = t => 1 - (1 - t) * (1 - t);       // ease the impact pop
+
+  // Timed tween — calls onUpdate(easedT) from 0→1 over dur ms.
+  function tween(dur, ease, onUpdate) {
     return new Promise(res => {
-      function tick() {
-        const t = Math.min((Date.now() - start) / dur, 1);
-        const e = easing === 'in' ? t * t : 1 - (1 - t) * (1 - t);
-        parent.style.gap = (maxGap - diff * e) + 'px';
+      const start = performance.now();
+      (function tick(now) {
+        const t = Math.min((now - start) / dur, 1);
+        onUpdate(ease(t));
         if (t < 1) requestAnimationFrame(tick);
         else res();
-      }
-      tick();
+      })(performance.now());
     });
   }
 
-  function spring(el1, el2, fromGap, toGap, dur) {
-    const parent = el1.closest('#phone-stage') || el1.closest('#anim-stage');
-    if (!parent) return;
-    const start = Date.now();
-    const diff = toGap - fromGap;
+  // Underdamped spring — drives a value 1→0 with natural overshoot, matching
+  // SwiftUI .spring(response:dampingFraction:). onUpdate gets the remaining
+  // displacement (starts at 1, settles at 0, dips slightly below for recoil).
+  function springDown(response, damping, onUpdate, settleMs = 460) {
+    const wn = (2 * Math.PI) / response;
+    const z  = Math.min(damping, 0.999);
+    const wd = wn * Math.sqrt(1 - z * z);
     return new Promise(res => {
-      function tick() {
-        const t = Math.min((Date.now() - start) / dur, 1);
-        const s = 1 - Math.exp(-6 * t) * Math.cos(8 * t);
-        parent.style.gap = (fromGap + diff * Math.min(s, 1)) + 'px';
-        if (t < 1) requestAnimationFrame(tick);
-        else res();
-      }
-      tick();
+      const start = performance.now();
+      (function tick(now) {
+        const t = (now - start) / 1000;
+        const v = Math.exp(-z * wn * t) *
+                  (Math.cos(wd * t) + (z / Math.sqrt(1 - z * z)) * Math.sin(wd * t));
+        onUpdate(v);
+        if ((now - start) < settleMs) requestAnimationFrame(tick);
+        else { onUpdate(0); res(); }
+      })(performance.now());
     });
+  }
+
+  // Renders one stage: progress (0..1) + scale → gap, inward tilt, scale.
+  function makeBumper(stageEl, left, right, maxGap) {
+    return function render(progress, scale) {
+      stageEl.style.gap = (maxGap - (maxGap - 6) * progress) + 'px';
+      const rot = 10 * progress;
+      left.style.transform  = `rotate(${rot}deg) scale(${scale})`;
+      right.style.transform = `scaleX(-1) rotate(${rot}deg) scale(${scale})`;
+    };
+  }
+
+  // One tap: lean in → brief impact pop (+flash) → springy recoil.
+  async function tap(render, peakScale, flashEl) {
+    await tween(150, easeIn, t => render(t, 1));
+    if (flashEl) flashEl.style.opacity = '1';
+    await tween(70, easeOut, t => render(1, 1 + (peakScale - 1) * t));
+    if (flashEl) flashEl.style.opacity = '0';
+    await springDown(0.24, 0.62, v => render(v, 1 + (peakScale - 1) * v));
   }
 
   // ─── Hero animation loop ─────────────────────────────────────
   async function heroLoop() {
     const stage = document.getElementById('phone-stage');
+    const render = makeBumper(stage, pL, pR, 28);
     while (true) {
-      stage.style.gap = '28px';
+      render(0, 1);
       flash.style.opacity = '0';
       connLabel.style.opacity = '0';
+      await wait(280);
 
-      // ① approach
-      await approach(pL, pR, 28, 6, 200, 'in');
-      // ② impact flash + scale
-      flash.style.opacity = '1';
-      pL.style.transform = 'rotate(10deg) scale(1.07)';
-      pR.style.transform = 'scaleX(-1) rotate(10deg) scale(1.07)';
-      await wait(80);
-      // ③ recoil
-      flash.style.opacity = '0';
-      await spring(pL, pR, 6, 28, 220);
-      pL.style.transform = 'rotate(0deg) scale(1)';
-      pR.style.transform = 'scaleX(-1) rotate(0deg) scale(1)';
-      await wait(140);
+      await tap(render, 1.08, flash);   // first tap
+      await wait(120);
+      await tap(render, 1.13, flash);   // second tap → connected
 
-      // ④ second approach
-      await approach(pL, pR, 28, 6, 180, 'in');
-      flash.style.opacity = '1';
-      pL.style.transform = 'rotate(10deg) scale(1.09)';
-      pR.style.transform = 'scaleX(-1) rotate(10deg) scale(1.09)';
-      await wait(80);
-      // ⑤ recoil + connected!
-      flash.style.opacity = '0';
-      await spring(pL, pR, 6, 28, 220);
-      pL.style.transform = 'rotate(0deg) scale(1)';
-      pR.style.transform = 'scaleX(-1) rotate(0deg) scale(1)';
       connLabel.style.opacity = '1';
       await wait(1600);
-
       connLabel.style.opacity = '0';
-      await wait(400);
-      await wait(800);
+      await wait(650);
     }
   }
 
   // ─── How section animation loop ─────────────────────────────
   async function howLoop() {
     const stage = document.getElementById('anim-stage');
+    const render = makeBumper(stage, p2L, p2R, 26);
     while (true) {
-      // ① idle — step 1
-      stage.style.gap = '26px';
+      render(0, 1);
       setScreen(cells2L, false);
       setScreen(cells2R, false);
       activateStep(0);
       await wait(800);
 
-      // ② approach — step 2
       activateStep(1);
-      await approach(p2L, p2R, 26, 6, 200, 'in');
-      p2L.style.transition = 'transform 60ms ease-out';
-      p2R.style.transition = 'transform 60ms ease-out';
-      p2L.style.transform = 'rotate(10deg) scale(1.07)';
-      p2R.style.transform = 'scaleX(-1) rotate(10deg) scale(1.07)';
-      await wait(70);
-      await spring(p2L, p2R, 6, 26, 200);
-      p2L.style.transform = 'rotate(0deg)';
-      p2R.style.transform = 'scaleX(-1) rotate(0deg)';
-      await wait(140);
+      await tap(render, 1.07);
+      await wait(120);
+      await tap(render, 1.10);
 
-      // second tap
-      await approach(p2L, p2R, 26, 6, 180, 'in');
-      p2L.style.transform = 'rotate(10deg) scale(1.1)';
-      p2R.style.transform = 'scaleX(-1) rotate(10deg) scale(1.1)';
-      await wait(70);
-      await spring(p2L, p2R, 6, 26, 200);
-      p2L.style.transform = 'rotate(0deg)';
-      p2R.style.transform = 'scaleX(-1) rotate(0deg)';
-
-      // ③ connected — step 3
       setScreen(cells2L, true);
       setScreen(cells2R, true);
       activateStep(2);
       await wait(1800);
 
-      // reset
       setScreen(cells2L, false);
       setScreen(cells2R, false);
       await wait(400);

@@ -18,37 +18,30 @@ Builds DOM cells into `el`. Returns `cells[]` array. Call once per phone element
 Toggles all screen-type cells yellow (`rgba(255,214,10,0.88)`) or transparent.
 This is the only way to change screen color — do not set it via CSS class.
 
-## Animation helpers
+## Animation engine (progress-driven)
+
+A bump is one `progress` value (0 = apart, 1 = touching). Gap, inward tilt, and impact scale are **all derived from that single value every frame** — mirroring the progress-driven `SplashView.swift`. Never animate the gap alone with the tilt snapping separately; that desync is what made the old version jerky.
 
 | Function | Purpose |
 |----------|---------|
 | `wait(ms)` | `Promise`-wrapped `setTimeout` |
-| `approach(el1, el2, maxGap, minGap, dur, easing)` | Animates flex `gap` toward `minGap` over `dur`ms. Easing: `'in'` (quadratic in) or `'out'` (quadratic out). |
-| `spring(el1, el2, fromGap, toGap, dur)` | Overdamped spring: `1 - e^(-6t) * cos(8t)`. Used for recoil after impact. |
+| `easeIn` / `easeOut` | `t*t` (accelerate into contact) / `1-(1-t)²` (ease the pop) |
+| `tween(dur, ease, onUpdate)` | Timed rAF tween; calls `onUpdate(easedT)` from 0→1 over `dur`ms |
+| `springDown(response, damping, onUpdate, settleMs)` | Underdamped spring matching SwiftUI `.spring(response:dampingFraction:)`; `onUpdate` gets displacement 1→0 with a slight dip below 0 for recoil |
+| `makeBumper(stageEl, left, right, maxGap)` | Returns `render(progress, scale)` → sets `stage.gap = maxGap-(maxGap-6)·progress`, `rotate(10·progress deg)`, and `scale`. Right phone transform is `scaleX(-1) rotate(...)` |
+| `tap(render, peakScale, flashEl?)` | One bump: `tween(150,easeIn)` lean-in → flash + `tween(70,easeOut)` scale pop → `springDown(0.24, 0.62)` recoil |
 
-Both `approach` and `spring` locate the parent stage via `el.closest('#phone-stage') || el.closest('#anim-stage')` and set `parent.style.gap` directly.
+Hero uses `maxGap: 28`, how-section `maxGap: 26`. There is **no CSS transition** on `.css-phone` — every transform is written per-frame by rAF, so a CSS transition would fight it.
 
-## Hero loop sequence
+## Loop sequences
 
-```
-reset gap=28px → approach to 6px → flash + tilt → spring recoil →
-wait 140ms → approach to 6px (faster) → flash + tilt → spring recoil →
-show "Connected!" label → wait 1600ms → fade label → wait 1200ms → repeat
-```
-
-## How-section loop sequence
-
-```
-gap=26px, screens off, step 1 active → wait 800ms →
-step 2 active, approach → tilt → spring recoil → wait 140ms →
-approach again → tilt → spring recoil →
-screens on (yellow), step 3 active → wait 1800ms →
-screens off → wait 400ms → repeat
-```
+- **Hero**: `render(0,1)` → wait 280ms → `tap(1.08, flash)` → wait 120ms → `tap(1.13, flash)` → show "Connected!" → wait 1600ms → fade → wait 650ms → repeat
+- **How**: `render(0,1)`, screens off, step 1 → wait 800ms → step 2 + `tap(1.07)` → wait 120ms → `tap(1.10)` → screens on, step 3 → wait 1800ms → screens off → wait 400ms → repeat
 
 ## Adding animations
 
 - Always `async/await` — never nested `setTimeout` callbacks
-- Use `requestAnimationFrame` only inside `approach`/`spring`-style interpolation loops
+- Use `requestAnimationFrame` only inside `tween`/`springDown`-style interpolation
+- Drive gap + tilt + scale from one progress value via `makeBumper` — don't reintroduce gap-only animation
 - Keep phone `transform-origin: bottom center` so rotation pivots at the base
 - Mirror (right phone): apply `scaleX(-1)` as part of the transform string, not as a separate CSS class override

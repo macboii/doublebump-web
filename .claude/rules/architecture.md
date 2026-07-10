@@ -2,11 +2,11 @@
 
 ## File layout
 
-The entire site lives in one `index.html`. Do not split into multiple files unless the file exceeds ~1500 lines and a build step is introduced. Binary assets go under `assets/` (e.g. `assets/features/*.webp` — store screenshots optimized to WebP with `cwebp -q 82`).
+The entire site lives in one `index.html`. Do not split into multiple files unless the file exceeds ~1500 lines and a build step is introduced. Binary assets go under `assets/` — `assets/features/*.webp` (landscape concept banners, `cwebp -q 82`) and `assets/screens/*.webp` (portrait app screenshots, `cwebp -q 80 -resize 640 0`).
 
 Order inside `index.html`:
 1. `<head>` — meta, fonts, all CSS in one `<style>` block
-2. `<body>` — HTML sections in page order (hero → how → showcase → features → security → faq → cta → footer)
+2. `<body>` — HTML sections in page order (hero → how → showcase → features → screens → security → faq → cta → footer)
 3. `<script>` — all JS at the bottom, no inline handlers
 
 ## Section IDs
@@ -15,8 +15,9 @@ Order inside `index.html`:
 |----|---------|
 | `#hero` | Full-viewport opener with phone animation |
 | `#how` | How-it-works with step cards + mini animation |
-| `#showcase` | Visual feature banners (WebP store screenshots, responsive grid) |
+| `#showcase` | Visual feature banners (landscape WebP, responsive grid) |
 | `#features` | Feature card grid |
+| `#screens` | Portrait app screenshots in phone frames, each with a title + description caption |
 | `#security` | Security model (BLE / BUMP / MOTION layers) |
 | `#cta` | Call-to-action before footer |
 | `footer` | Links + copyright |
@@ -27,6 +28,14 @@ Order inside `index.html`:
 - Animation loops use `async/await` + `Promise`-wrapped `setTimeout` (`wait(ms)`)
 - `requestAnimationFrame` only for smooth frame-by-frame interpolation (approach, spring)
 - No external JS libraries — keep zero-dependency
+
+## SEO / structured data
+
+The `<head>` carries the full SEO surface — keep these in sync when content changes:
+- Meta: description, keywords, canonical, Open Graph + Twitter cards (`og:image`/`twitter:image` point to `assets/features/feature-1.webp`), `og:locale` en_US + `ko_KR` alternate, `theme-color`.
+- One JSON-LD `@graph` with: `WebSite`, `WebPage` (+ `speakable`, `dateModified`), `SoftwareApplication` (+ `screenshot` array of the real `assets/screens/*.webp`, `downloadUrl` for both stores), `HowTo`, `FAQPage`. The `FAQPage` answers mirror the visible `#faq` copy — update both together.
+- `sitemap.xml` + `robots.txt` live at root; `robots.txt` explicitly allows AI/answer-engine crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …) for AEO/GEO. Add any new page to `sitemap.xml`.
+- Dates in structured data are absolute (`2026-07-10`); bump `dateModified`/`lastmod` on meaningful content changes.
 
 ## Internationalization (i18n)
 
