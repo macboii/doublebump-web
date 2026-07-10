@@ -33,10 +33,13 @@ All colors are defined in `:root`. Never hardcode hex values inline — always u
 - Active/highlighted card: `border-color: #3a3a1a; background: #1e1e10;` (warm yellow tint)
 - Security inner panel: `border-radius: 20px`
 
+- Showcase banners (`.showcase-shot`): same card frame with `overflow: hidden; line-height: 0`; images are `width: 100%; height: auto` inside a `repeat(auto-fit, minmax(300px, 1fr))` grid.
+
 ## Buttons
 
-`.btn-primary` is the only button style. Yellow background, black text, 800 weight.
+`.btn-primary` is the only content button style. Yellow background, black text, 800 weight.
 Do not add secondary button styles unless a clear design need exists.
+`.lang-toggle` is the one exception — a fixed top-right EN/한국어 switch in pixel font (utility control, not a content button).
 
 ## Dividers
 

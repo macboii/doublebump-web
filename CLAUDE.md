@@ -20,6 +20,8 @@ terms.html        # Terms of Service page
 delete-account.html  # Account deletion instructions page
 child-safety.html # Child Safety Standards page (Google Play compliance)
 logo.png          # 1024×1024 app icon (also used for favicon + OG image)
+assets/
+  features/       # feature banner WebP screenshots (#showcase section)
 CLAUDE.md         # this file
 .claude/
   commands/       # slash commands (legacy — prefer skills/)

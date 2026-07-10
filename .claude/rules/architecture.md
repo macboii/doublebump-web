@@ -2,11 +2,11 @@
 
 ## File layout
 
-The entire site lives in one `index.html`. Do not split into multiple files unless the file exceeds ~1500 lines and a build step is introduced.
+The entire site lives in one `index.html`. Do not split into multiple files unless the file exceeds ~1500 lines and a build step is introduced. Binary assets go under `assets/` (e.g. `assets/features/*.webp` — store screenshots optimized to WebP with `cwebp -q 82`).
 
 Order inside `index.html`:
 1. `<head>` — meta, fonts, all CSS in one `<style>` block
-2. `<body>` — HTML sections in page order (hero → how → features → security → cta → footer)
+2. `<body>` — HTML sections in page order (hero → how → showcase → features → security → faq → cta → footer)
 3. `<script>` — all JS at the bottom, no inline handlers
 
 ## Section IDs
@@ -15,6 +15,7 @@ Order inside `index.html`:
 |----|---------|
 | `#hero` | Full-viewport opener with phone animation |
 | `#how` | How-it-works with step cards + mini animation |
+| `#showcase` | Visual feature banners (WebP store screenshots, responsive grid) |
 | `#features` | Feature card grid |
 | `#security` | Security model (BLE / BUMP / MOTION layers) |
 | `#cta` | Call-to-action before footer |
@@ -26,6 +27,16 @@ Order inside `index.html`:
 - Animation loops use `async/await` + `Promise`-wrapped `setTimeout` (`wait(ms)`)
 - `requestAnimationFrame` only for smooth frame-by-frame interpolation (approach, spring)
 - No external JS libraries — keep zero-dependency
+
+## Internationalization (i18n)
+
+English is the default; Korean is a runtime toggle (no page reload, no separate files).
+
+- Mark any translatable text node with `data-i18n="<key>"`. Keep English as the inline HTML — it's the source of truth and the EN fallback.
+- Korean strings live in the `I18N.ko` dictionary in the first bottom `<script>`. Every `data-i18n` key must have exactly one `ko` entry (no missing, no unused).
+- On load, each node's English HTML is snapshotted into `dataset.en`; `setLang('en')` restores it, `setLang('ko')` swaps in the dict value. Values may contain HTML (`<strong>`, `<br>`) — applied via `innerHTML`.
+- Choice persists in `localStorage['db_lang']` and updates `<html lang>`.
+- Pixel-font decorative text (DOUBLE BUMP logo, `.section-label` tags, `.layer-badge`, step nums, `Ready to bump?`) stays English in both languages — `Press Start 2P` has no Korean glyphs. Do not add `data-i18n` to `.pixel` elements.
 
 ## Pixel phone system
 
