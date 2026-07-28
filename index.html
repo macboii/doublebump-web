@@ -724,6 +724,123 @@
     }
     .lang-toggle:hover { opacity: 0.85; transform: translateY(-1px); }
 
+    /* ─── BUMP DEMO MODAL ────────────────────────── */
+    .bump-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.75);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s;
+      padding: 24px;
+    }
+    .bump-modal.open { opacity: 1; visibility: visible; }
+
+    .bump-modal-inner {
+      position: relative;
+      background: var(--card);
+      border: 1px solid #2a2a2a;
+      border-radius: 18px;
+      padding: 32px 28px;
+      max-width: 340px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .bump-modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 16px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 6px;
+    }
+    .bump-modal-close:hover { color: var(--white); }
+
+    .bump-modal-stage {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 34px;
+      height: 130px;
+      margin-top: 8px;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .bump-phone-drag { cursor: grab; touch-action: none; }
+    .bump-phone-drag:active { cursor: grabbing; }
+
+    .bump-flash {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      margin-left: -9px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 0 14px 4px rgba(255,255,255,0.55);
+      opacity: 0;
+      transition: opacity 0.08s;
+      pointer-events: none;
+    }
+
+    .bump-hint {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .bump-hint.show { opacity: 1; }
+
+    .bump-hearts {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+    .bump-heart {
+      position: absolute;
+      font-size: 14px;
+      opacity: 0;
+      animation: floatHeart 900ms ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes floatHeart {
+      0%   { opacity: 1; transform: translate(-50%, 0) scale(0.8); }
+      100% { opacity: 0; transform: translate(-50%, -46px) scale(1.1); }
+    }
+
+    .bump-success {
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      font-size: 10px;
+      color: var(--yellow);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .bump-success.show { opacity: 1; }
+    .bump-success .bump-xp { font-size: 9px; color: var(--white); }
+
     /* ─── RESPONSIVE ─────────────────────────────── */
     @media (max-width: 500px) {
       .security-inner { padding: 24px 20px; }
@@ -736,6 +853,25 @@
 <body>
 
 <button class="lang-toggle pixel" id="langToggle" aria-label="Change language" type="button">한국어</button>
+
+<!-- ═══════════════════════════════════════════════ BUMP DEMO MODAL -->
+<div class="bump-modal" id="bumpModal">
+  <div class="bump-modal-inner">
+    <button class="bump-modal-close" id="bumpModalClose" aria-label="Close" type="button">✕</button>
+    <div class="pixel section-label" style="margin-bottom:8px">Try It</div>
+    <div class="bump-modal-stage" id="bumpStage">
+      <div class="bump-flash" id="bumpFlash"></div>
+      <div class="css-phone bump-phone-drag" id="bumpPhoneL"></div>
+      <div class="css-phone mirror bump-phone-drag" id="bumpPhoneR"></div>
+      <div class="bump-hearts" id="bumpHearts"></div>
+      <div class="pixel bump-success" id="bumpSuccess">
+        <span>Friend Added</span>
+        <span class="bump-xp">+250 XP</span>
+      </div>
+    </div>
+    <div class="bump-hint" id="bumpHint" data-i18n="modal.hint">👆 Drag them together</div>
+  </div>
+</div>
 
 <main>
 <!-- ═══════════════════════════════════════════════ HERO -->
@@ -1083,6 +1219,8 @@
     ko: {
       "hero.sub": "실제로 만난 사람과 연결되세요 — 폰을 두 번 부딪히기만 하면 끝. QR 코드도, 아이디도 필요 없어요. 오직 진짜 만남의 순간뿐.",
 
+      "modal.hint": "👆 두 폰을 드래그해서 부딪혀 보세요",
+
       "show.title": "DoubleBump을 눈으로 확인하세요.",
 
       "screens.title": "앱 속을 자세히 들여다보세요.",
@@ -1392,6 +1530,164 @@
       await wait(400);
     }
   }
+
+  // ─── Bump demo modal (drag-to-bump mini-game) ───────────────
+  const bumpModal = document.getElementById('bumpModal');
+  const bumpModalClose = document.getElementById('bumpModalClose');
+  const bumpStage = document.getElementById('bumpStage');
+  const bumpFlash = document.getElementById('bumpFlash');
+  const bumpPhoneL = document.getElementById('bumpPhoneL');
+  const bumpPhoneR = document.getElementById('bumpPhoneR');
+  const bumpHearts = document.getElementById('bumpHearts');
+  const bumpSuccess = document.getElementById('bumpSuccess');
+  const bumpHint = document.getElementById('bumpHint');
+
+  const bumpCellsL = buildPhone(bumpPhoneL, 7);
+  const bumpCellsR = buildPhone(bumpPhoneR, 7);
+  const renderBump = makeBumper(bumpStage, bumpPhoneL, bumpPhoneR, 34);
+
+  const DRAG_RANGE = 70;
+  const SUCCESS_THRESHOLD = 0.85;
+
+  let bumpProgress = 0;
+  let modalOpen = false;
+  let hasInteracted = false;
+  let locked = false;
+  let dragging = false;
+  let dragPhone = null;
+  let dragStartX = 0;
+  let dragStartProgress = 0;
+
+  // One nudge: gap closes slightly then reopens — reuses tween/easeOut like the
+  // rest of the engine instead of a bespoke oscillation.
+  async function wiggle() {
+    await tween(180, easeOut, t => renderBump(0.15 * t, 1));
+    await tween(180, easeOut, t => renderBump(0.15 * (1 - t), 1));
+  }
+
+  async function hintLoop() {
+    while (modalOpen && !hasInteracted) {
+      bumpHint.classList.add('show');
+      await wait(700);
+      if (!modalOpen || hasInteracted) break;
+      await wiggle();
+      if (!modalOpen || hasInteracted) break;
+      await wiggle();
+      if (!modalOpen || hasInteracted) break;
+      await wait(1500);
+    }
+    bumpHint.classList.remove('show');
+  }
+
+  function spawnHearts() {
+    for (let i = 0; i < 4; i++) {
+      const span = document.createElement('span');
+      span.className = 'bump-heart';
+      span.textContent = '❤';
+      span.style.left = ((i - 1.5) * 14) + 'px';
+      span.style.animationDelay = (i * 90) + 'ms';
+      bumpHearts.appendChild(span);
+      setTimeout(() => span.remove(), 1000 + i * 90);
+    }
+  }
+
+  // Trimmed version of tap(): skips the lean-in tween since the drag itself
+  // already brought progress to 1 — just the impact pop + flash + recoil.
+  async function bumpImpact() {
+    bumpProgress = 1;
+    renderBump(1, 1);
+    bumpFlash.style.opacity = '1';
+    await tween(70, easeOut, t => renderBump(1, 1 + 0.13 * t));
+    bumpFlash.style.opacity = '0';
+    await springDown(0.24, 0.62, v => renderBump(v, 1 + 0.13 * v));
+    bumpProgress = 0;
+
+    setScreen(bumpCellsL, true);
+    setScreen(bumpCellsR, true);
+    spawnHearts();
+    bumpSuccess.classList.add('show');
+
+    await wait(1500);
+    closeBumpModal();
+    locked = false;
+    const cta = document.getElementById('cta');
+    if (cta) cta.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function onBumpPointerDown(e, which) {
+    if (locked) return;
+    dragging = true;
+    dragPhone = which;
+    dragStartX = e.clientX;
+    dragStartProgress = bumpProgress;
+    e.target.setPointerCapture(e.pointerId);
+    if (!hasInteracted) {
+      hasInteracted = true;
+      bumpHint.classList.remove('show');
+    }
+  }
+
+  function onBumpPointerMove(e) {
+    if (!dragging) return;
+    const delta = e.clientX - dragStartX;
+    const signedDelta = dragPhone === 'L' ? delta : -delta;
+    bumpProgress = Math.min(1, Math.max(0, dragStartProgress + signedDelta / DRAG_RANGE));
+    renderBump(bumpProgress, 1);
+  }
+
+  async function onBumpPointerUp() {
+    if (!dragging) return;
+    dragging = false;
+    dragPhone = null;
+    if (locked) return;
+
+    if (bumpProgress >= SUCCESS_THRESHOLD) {
+      locked = true;
+      await bumpImpact();
+    } else {
+      const startVal = bumpProgress;
+      await tween(200, easeOut, t => {
+        bumpProgress = startVal * (1 - t);
+        renderBump(bumpProgress, 1);
+      });
+    }
+  }
+
+  function openBumpModal() {
+    if (modalOpen) return;
+    modalOpen = true;
+    hasInteracted = false;
+    locked = false;
+    bumpProgress = 0;
+    renderBump(0, 1);
+    setScreen(bumpCellsL, false);
+    setScreen(bumpCellsR, false);
+    bumpSuccess.classList.remove('show');
+    bumpHearts.innerHTML = '';
+    bumpFlash.style.opacity = '0';
+    bumpModal.classList.add('open');
+    hintLoop();
+  }
+
+  function closeBumpModal() {
+    modalOpen = false;
+    bumpModal.classList.remove('open');
+    try { localStorage.setItem('db_bump_demo_seen', '1'); } catch (e) {}
+  }
+
+  bumpModalClose.addEventListener('click', closeBumpModal);
+  bumpModal.addEventListener('click', e => { if (e.target === bumpModal) closeBumpModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalOpen) closeBumpModal(); });
+
+  bumpPhoneL.addEventListener('pointerdown', e => onBumpPointerDown(e, 'L'));
+  bumpPhoneR.addEventListener('pointerdown', e => onBumpPointerDown(e, 'R'));
+  window.addEventListener('pointermove', onBumpPointerMove);
+  window.addEventListener('pointerup', onBumpPointerUp);
+  window.addEventListener('pointercancel', onBumpPointerUp);
+
+  let bumpDemoSeen = false;
+  try { bumpDemoSeen = !!localStorage.getItem('db_bump_demo_seen'); } catch (e) {}
+  if (!bumpDemoSeen) setTimeout(openBumpModal, 2500);
 
   // Start animations
   heroLoop();
