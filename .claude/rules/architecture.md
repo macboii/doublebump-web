@@ -65,6 +65,7 @@ English is the fallback; Korean is a runtime toggle (no page reload, no separate
 - **Localized artwork**: an `<img data-i18n-src="…-ko.webp" data-i18n-alt="…">` gets its `src` and `alt` swapped by `setLang`. The inline `src`/`alt` stay English and are snapshotted into `dataset.enSrc` / `dataset.enAlt` on load. Used by `#showcase`; the English and Korean files must be the same pixel dimensions or the grid reflows on toggle.
 - Text is swapped from a bottom-of-`<body>` script, so Korean visitors see a brief flash of English. Accepted trade-off — fixing it means moving translation into `<head>` or shipping separate `ko/` pages.
 - Pixel-font decorative text (DOUBLE BUMP logo, `.section-label` tags, `.layer-badge`, step nums, `Ready to bump?`) stays English in both languages — `Press Start 2P` has no Korean glyphs. Do not add `data-i18n` to `.pixel` elements.
+- A node that must translate but sits on a `.pixel` element (e.g. `.how-note`) keeps `data-i18n` and drops the pixel font only for Korean via `html[lang="ko"] .selector { font-family: ... }` — don't exclude it from translation just because it's styled `.pixel`.
 
 ## Pixel phone system
 

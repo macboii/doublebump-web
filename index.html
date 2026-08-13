@@ -222,8 +222,8 @@
       --card2:  #222222;
       --yellow: #FFD60A;
       --white:  #ffffff;
-      --gray:   #888888;
-      --dim:    #444444;
+      --gray:   #9a9a9a;
+      --dim:    #848484;
     }
 
     html { scroll-behavior: smooth; }
@@ -560,6 +560,26 @@
       opacity: 0;
       transition: opacity 0.3s ease-in;
       white-space: nowrap;
+    }
+
+    /* Caution line under the demo. It's a sentence, not a decorative tag, so
+       the Korean version drops the pixel font — "Press Start 2P" has no
+       Korean glyphs and would render as unstyled fallback boxes at 8px. */
+    .how-note {
+      margin-top: 48px;
+      font-size: 8px;
+      color: var(--dim);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      line-height: 1.8;
+    }
+
+    html[lang="ko"] .how-note {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0;
+      text-transform: none;
+      line-height: 1.7;
     }
 
     /* ─── DEMO VIDEO (real footage in #how) ──────── */
@@ -976,11 +996,11 @@
   <div class="store-buttons">
     <a class="btn-primary" href="https://apps.apple.com/app/id6770075271" target="_blank" rel="noopener">
       <svg class="apple-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35c-1.09-.46-2.09-.48-3.24 0c-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8c1.18-.24 2.31-.93 3.57-.84c1.51.12 2.65.72 3.4 1.8c-3.12 1.87-2.38 5.98.48 7.13c-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25c.29 2.58-2.34 4.5-3.74 4.25"/></svg>
-      App Store
+      <span data-i18n="btn.appstore">App Store</span>
     </a>
     <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.doublebump.android" target="_blank" rel="noopener">
       <svg class="android-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m22.018 13.298l-3.919 2.218l-3.515-3.493l3.543-3.521l3.891 2.202a1.49 1.49 0 0 1 0 2.594M1.337.924a1.5 1.5 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087zm12.207 10.065l3.258-3.238L3.45.195a1.47 1.47 0 0 0-.946-.179zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54z"/></svg>
-      Google Play
+      <span data-i18n="btn.googleplay">Google Play</span>
     </a>
   </div>
 
@@ -1110,7 +1130,7 @@
     </figcaption>
   </figure>
 
-  <div class="pixel section-label" style="margin-top:48px; font-size:8px; color:var(--dim)">
+  <div class="how-note pixel" data-i18n="how.note">
     ⚠ &nbsp; Both phones must be moving. One-sided won't work.
   </div>
 </section>
@@ -1411,11 +1431,11 @@
   <div class="store-buttons">
     <a class="btn-primary" href="https://apps.apple.com/app/id6770075271" target="_blank" rel="noopener">
       <svg class="apple-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35c-1.09-.46-2.09-.48-3.24 0c-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8c1.18-.24 2.31-.93 3.57-.84c1.51.12 2.65.72 3.4 1.8c-3.12 1.87-2.38 5.98.48 7.13c-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25c.29 2.58-2.34 4.5-3.74 4.25"/></svg>
-      App Store
+      <span data-i18n="btn.appstore">App Store</span>
     </a>
     <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.doublebump.android" target="_blank" rel="noopener">
       <svg class="android-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m22.018 13.298l-3.919 2.218l-3.515-3.493l3.543-3.521l3.891 2.202a1.49 1.49 0 0 1 0 2.594M1.337.924a1.5 1.5 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087zm12.207 10.065l3.258-3.238L3.45.195a1.47 1.47 0 0 0-.946-.179zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54z"/></svg>
-      Google Play
+      <span data-i18n="btn.googleplay">Google Play</span>
     </a>
   </div>
 </section>
@@ -1439,6 +1459,9 @@
   // English in both languages — "Press Start 2P" has no Korean glyphs.
   const I18N = {
     ko: {
+      "btn.appstore": "App Store에서 받기",
+      "btn.googleplay": "Google Play에서 받기",
+
       "hero.sub": "실제로 만난 사람과 연결되세요 — 폰을 두 번 부딪히기만 하면 끝. QR 코드도, 아이디도 필요 없어요. 오직 진짜 만남의 순간뿐.",
 
       "why.title": "온라인에서는 늘 연결되어 있죠.<br>그런데 우리는 무엇을 기억하나요?",
@@ -1492,6 +1515,7 @@
       "how.step2.desc": "두 번의 부딪힘이 동작이자 증거예요. BLE가 30cm 이내인지 확인합니다.",
       "how.step3.title": "연결 완료!",
       "how.step3.desc": "화면이 노랗게 빛나고, 연결은 지도에 영원히 저장됩니다.",
+      "how.note": "⚠ &nbsp; 두 폰이 모두 움직여야 합니다. 한쪽만 부딪히면 연결되지 않아요.",
       "how.demo": "실제 촬영 영상 — 폰 두 대, 두 번의 부딪힘, 그리고 연결. 초기 빌드로 촬영했습니다.",
 
       "feat.title": "당신만의 리얼 소셜 지도.",

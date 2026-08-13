@@ -11,8 +11,10 @@ All colors are defined in `:root`. Never hardcode hex values inline — always u
 | `--card2` | `#222222` | secondary card |
 | `--yellow` | `#FFD60A` | brand accent, CTAs, highlights |
 | `--white` | `#ffffff` | primary text |
-| `--gray` | `#888888` | secondary / body text |
-| `--dim` | `#444444` | muted text, inactive states |
+| `--gray` | `#9a9a9a` | secondary / body text (≥5.6:1 on all backgrounds) |
+| `--dim` | `#848484` | muted text, captions, inactive states (≥4:1 on all backgrounds) |
+
+`--gray` and `--dim` were bumped from `#888888`/`#444444` — the old `--dim` was ~1.6–1.9:1 against every background, well under WCAG AA (4.5:1 for body text, 3:1 for large/bold). Don't darken either token back down without re-checking contrast against `--bg`, `--card`, `--card2`, and the `#1e1e10` highlighted-card tint.
 
 ## Typography
 
