@@ -1157,7 +1157,7 @@
   const i18nNodes = document.querySelectorAll('[data-i18n]');
   i18nNodes.forEach(el => { el.dataset.en = el.innerHTML; });
 
-  function setLang(lang) {
+  function setLang(lang, persist) {
     const dict = I18N[lang];
     i18nNodes.forEach(el => {
       const key = el.dataset.i18n;
@@ -1169,16 +1169,33 @@
     });
     document.documentElement.lang = lang;
     langToggle.textContent = lang === 'en' ? '한국어' : 'EN';
-    try { localStorage.setItem('db_lang', lang); } catch (e) {}
+    // Only an explicit toggle is remembered — an auto-detected language stays
+    // live so a browser locale change is picked up on the next visit.
+    if (persist) { try { localStorage.setItem('db_lang', lang); } catch (e) {} }
   }
 
-  let currentLang = 'en';
-  try { currentLang = localStorage.getItem('db_lang') || 'en'; } catch (e) {}
-  setLang(currentLang);
+  // Browser/OS locale → 'ko' for any Korean tag (ko, ko-KR, ko-Kore-KR …).
+  function detectLang() {
+    const tags = navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language || ''];
+    for (const tag of tags) {
+      const base = String(tag).toLowerCase().split('-')[0];
+      if (base === 'ko') return 'ko';
+      if (I18N[base] || base === 'en') return 'en';
+    }
+    return 'en';
+  }
+
+  let currentLang = null;
+  try { currentLang = localStorage.getItem('db_lang'); } catch (e) {}
+  // Saved choice wins; otherwise fall back to the visitor's browser language.
+  if (currentLang !== 'en' && currentLang !== 'ko') currentLang = detectLang();
+  setLang(currentLang, false);
 
   langToggle.addEventListener('click', () => {
     currentLang = currentLang === 'en' ? 'ko' : 'en';
-    setLang(currentLang);
+    setLang(currentLang, true);
   });
 </script>
 

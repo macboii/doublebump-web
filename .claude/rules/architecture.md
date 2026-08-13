@@ -39,12 +39,15 @@ The `<head>` carries the full SEO surface — keep these in sync when content ch
 
 ## Internationalization (i18n)
 
-English is the default; Korean is a runtime toggle (no page reload, no separate files).
+English is the fallback; Korean is a runtime toggle (no page reload, no separate files). Only `index.html` is translated — the legal pages are English-only.
 
 - Mark any translatable text node with `data-i18n="<key>"`. Keep English as the inline HTML — it's the source of truth and the EN fallback.
 - Korean strings live in the `I18N.ko` dictionary in the first bottom `<script>`. Every `data-i18n` key must have exactly one `ko` entry (no missing, no unused).
 - On load, each node's English HTML is snapshotted into `dataset.en`; `setLang('en')` restores it, `setLang('ko')` swaps in the dict value. Values may contain HTML (`<strong>`, `<br>`) — applied via `innerHTML`.
-- Choice persists in `localStorage['db_lang']` and updates `<html lang>`.
+- Startup language priority: saved `localStorage['db_lang']` (only ever `'en'`/`'ko'`) → `detectLang()` → `'en'`. `detectLang()` walks `navigator.languages` (falling back to `navigator.language`) and returns `'ko'` for any Korean tag (`ko`, `ko-KR`, `ko-Kore-KR`).
+- `setLang(lang, persist)` — only pass `persist: true` from the toggle click. Auto-detected languages must **not** be written to `localStorage`, otherwise a stale first-visit value would outrank the visitor's later browser locale forever.
+- `setLang` also updates `<html lang>` and the toggle button label.
+- Text is swapped from a bottom-of-`<body>` script, so Korean visitors see a brief flash of English. Accepted trade-off — fixing it means moving translation into `<head>` or shipping separate `ko/` pages.
 - Pixel-font decorative text (DOUBLE BUMP logo, `.section-label` tags, `.layer-badge`, step nums, `Ready to bump?`) stays English in both languages — `Press Start 2P` has no Korean glyphs. Do not add `data-i18n` to `.pixel` elements.
 
 ## Pixel phone system
