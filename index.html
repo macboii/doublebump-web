@@ -1538,6 +1538,9 @@
     }
   };
 
+  // Versioned key: only a deliberate toggle click is ever written here.
+  const LANG_KEY = 'db_lang_choice';
+
   const langToggle = document.getElementById('langToggle');
   // Snapshot the original English HTML for every translatable node so we can
   // restore it when switching back to EN — no need to duplicate English strings.
@@ -1572,7 +1575,7 @@
     langToggle.textContent = lang === 'en' ? '한국어' : 'EN';
     // Only an explicit toggle is remembered — an auto-detected language stays
     // live so a browser locale change is picked up on the next visit.
-    if (persist) { try { localStorage.setItem('db_lang', lang); } catch (e) {} }
+    if (persist) { try { localStorage.setItem(LANG_KEY, lang); } catch (e) {} }
   }
 
   // Browser/OS locale → 'ko' for any Korean tag (ko, ko-KR, ko-Kore-KR …).
@@ -1589,7 +1592,13 @@
   }
 
   let currentLang = null;
-  try { currentLang = localStorage.getItem('db_lang'); } catch (e) {}
+  try {
+    currentLang = localStorage.getItem(LANG_KEY);
+    // Builds before 2026-08 wrote 'db_lang' on every page load, not just on a
+    // toggle click — so every earlier visitor carries a bogus 'en'. Drop it;
+    // an explicit choice now lives under LANG_KEY.
+    localStorage.removeItem('db_lang');
+  } catch (e) {}
   // Saved choice wins; otherwise fall back to the visitor's browser language.
   if (currentLang !== 'en' && currentLang !== 'ko') currentLang = detectLang();
   setLang(currentLang, false);
