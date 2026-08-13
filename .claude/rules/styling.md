@@ -33,8 +33,20 @@ All colors are defined in `:root`. Never hardcode hex values inline — always u
 - Active/highlighted card: `border-color: #3a3a1a; background: #1e1e10;` (warm yellow tint)
 - Security inner panel: `border-radius: 20px`
 
-- Showcase banners (`.showcase-shot`): same card frame with `overflow: hidden; line-height: 0`; images are `width: 100%; height: auto` inside a `repeat(auto-fit, minmax(300px, 1fr))` grid.
+- Showcase banners (`.showcase-shot`): same card frame with `overflow: hidden; line-height: 0`; images are `width: 100%; height: auto`. The shots are portrait, so the grid is an explicit `repeat(4, minmax(0, 1fr))` dropping to `repeat(2, …)` under 500px — `auto-fit` collapses to one full-width column on phones and makes each shot ~760px tall.
 - App screenshots (`.screen-frame`): `border-radius: 22px` phone frame, same `overflow: hidden; line-height: 0`; each `.screen-item` stacks the frame over a `.screen-cap-title` + `.screen-cap-desc` caption in a `repeat(auto-fit, minmax(180px, 1fr))` grid.
+- Demo video (`.demo-video` in `#how`): same card frame, `max-width: 480px`, with a `.demo-cap` caption in `var(--dim)`.
+
+## Narrative sections
+
+`#why`, `#concept`, `#value`, `#vision` all use the centred column pattern (`display: flex; flex-direction: column; align-items: center; text-align: center`) with left-aligned text inside their cards.
+
+| Component | Layout |
+|-----------|--------|
+| `.shift` (`#why`) | `1fr auto 1fr` grid — dim `.shift-from`, yellow pixel `.shift-arrow`, white bold `.shift-to`. Under 500px it stacks to one column and the arrow rotates 90°. |
+| `.stage` (`#concept`) | Fixed `repeat(2, minmax(0, 1fr))` 2×2 grid, one column on mobile. `.stage-num` is a yellow pixel chip, `.stage-name` yellow pixel text. |
+| `.value-item` (`#value`) | Single-column card list, `max-width: 620px` — copy is too long for a card grid. |
+| `.vision-quote` | The highlighted-card treatment (`#3a3a1a` border, `#1e1e10` background) used as a pull quote. |
 
 ## Buttons
 

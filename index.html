@@ -55,7 +55,7 @@
         "url": "https://doublebump.com",
         "name": "DoubleBump — Meet. Bump. Remember.",
         "inLanguage": "en",
-        "dateModified": "2026-07-10",
+        "dateModified": "2026-08-13",
         "primaryImageOfPage": "https://doublebump.com/assets/og-image.png",
         "speakable": {
           "@type": "SpeakableSpecification",
@@ -94,6 +94,15 @@
           "name": "DoubleBump",
           "email": "bangcoderpro@gmail.com"
         }
+      },
+      {
+        "@type": "VideoObject",
+        "name": "DoubleBump — two phones, two taps, connected",
+        "description": "Real footage of a DoubleBump connection: two phones are tapped together twice and both screens confirm the connection.",
+        "contentUrl": "https://doublebump.com/assets/demo/bump-demo.mp4",
+        "thumbnailUrl": "https://doublebump.com/assets/demo/bump-demo-poster.webp",
+        "uploadDate": "2026-08-13",
+        "duration": "PT4S"
       },
       {
         "@type": "HowTo",
@@ -352,6 +361,111 @@
       margin: 0 auto;
     }
 
+    /* ─── WHY (the problem) ──────────────────────── */
+    #why {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    #why .section-body em { color: var(--white); font-style: normal; font-weight: 700; }
+
+    .shift-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 40px;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    .shift {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 16px 20px;
+    }
+
+    .shift-from {
+      font-size: 13px;
+      color: var(--dim);
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    .shift-arrow {
+      font-size: 10px;
+      color: var(--yellow);
+      line-height: 1;
+    }
+
+    .shift-to {
+      font-size: 13px;
+      color: var(--white);
+      font-weight: 700;
+      text-align: left;
+      line-height: 1.5;
+    }
+
+    /* ─── THE IDEA (4 stages) ────────────────────── */
+    #concept {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* 2×2 so the four stages stay balanced — auto-fit would leave a 3+1 row. */
+    .stage-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 44px;
+      width: 100%;
+    }
+
+    .stage {
+      background: var(--card);
+      border: 1px solid #2a2a2a;
+      border-radius: 18px;
+      padding: 24px 22px;
+      text-align: left;
+    }
+
+    .stage-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .stage-num {
+      font-size: 9px;
+      color: #000;
+      background: var(--yellow);
+      border-radius: 6px;
+      padding: 6px 6px 5px;
+      line-height: 1;
+    }
+
+    .stage-name {
+      font-size: 10px;
+      color: var(--yellow);
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+
+    .stage-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
     /* ─── HOW IT WORKS ───────────────────────────── */
     #how {
       display: flex;
@@ -448,6 +562,95 @@
       white-space: nowrap;
     }
 
+    /* ─── DEMO VIDEO (real footage in #how) ──────── */
+    .demo {
+      margin: 48px 0 0;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .demo-video {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid #2a2a2a;
+      border-radius: 18px;
+      background: #000;
+    }
+
+    .demo-cap {
+      font-size: 12px;
+      color: var(--dim);
+      line-height: 1.6;
+      margin-top: 12px;
+    }
+
+    /* ─── VALUE (what the experience gives you) ──── */
+    #value {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .value-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 44px;
+      width: 100%;
+      max-width: 620px;
+    }
+
+    .value-item {
+      background: var(--card);
+      border: 1px solid #2a2a2a;
+      border-radius: 18px;
+      padding: 26px 28px;
+      text-align: left;
+    }
+
+    .value-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .value-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.8;
+    }
+
+    /* ─── VISION (closing statement) ─────────────── */
+    #vision {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .vision-quote {
+      margin: 40px 0 0;
+      border: 1px solid #3a3a1a;
+      background: #1e1e10;
+      border-radius: 18px;
+      padding: 28px 26px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.8;
+      max-width: 620px;
+    }
+
+    .vision-tag {
+      font-size: 10px;
+      color: var(--yellow);
+      letter-spacing: 2px;
+      margin-top: 28px;
+    }
+
     /* ─── FEATURES GRID ──────────────────────────── */
     #features { padding-top: 40px; }
 
@@ -494,10 +697,11 @@
       text-align: center;
     }
 
+    /* Portrait App Store shots — 4 across on desktop, 2 across on mobile. */
     .showcase-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
       margin-top: 40px;
       width: 100%;
     }
@@ -730,6 +934,15 @@
       .step { padding: 16px 18px; }
       .lang-toggle { top: 12px; right: 12px; padding: 8px 9px; }
       .screens-grid { grid-template-columns: minmax(0, 280px); gap: 36px; }
+      .showcase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .stage-grid { grid-template-columns: 1fr; }
+      .stage { padding: 20px 18px; }
+      .value-item { padding: 22px 20px; }
+      .vision-quote { padding: 24px 20px; }
+      /* Stack the from → to pairs so neither side gets squeezed to two words. */
+      .shift { grid-template-columns: 1fr; gap: 8px; padding: 18px 20px; }
+      .shift-from, .shift-to { text-align: center; }
+      .shift-arrow { transform: rotate(90deg); }
     }
   </style>
 </head>
@@ -775,6 +988,80 @@
 
 <hr class="divider" />
 
+<!-- ═══════════════════════════════════════════════ WHY -->
+<section id="why">
+  <div class="pixel section-label">Why</div>
+  <h2 class="section-title" data-i18n="why.title">Online, we're connected.<br>But what do we remember?</h2>
+  <p class="section-body" data-i18n="why.body">
+    Adding a friend online takes a second. Remembering who you <em>actually</em> met — and when, and where —
+    takes something else. A new classmate, someone from your club, a person you met once and never wrote down.
+    DoubleBump starts there: not with how connected you are online, but with the real moments you shared.
+  </p>
+
+  <div class="shift-grid">
+    <div class="shift">
+      <div class="shift-from" data-i18n="why.shift1.from">Adding a friend online</div>
+      <div class="shift-arrow pixel" aria-hidden="true">→</div>
+      <div class="shift-to" data-i18n="why.shift1.to">A record of meeting in person</div>
+    </div>
+    <div class="shift">
+      <div class="shift-from" data-i18n="why.shift2.from">Followers and following</div>
+      <div class="shift-arrow pixel" aria-hidden="true">→</div>
+      <div class="shift-to" data-i18n="why.shift2.to">Moments you actually shared</div>
+    </div>
+    <div class="shift">
+      <div class="shift-from" data-i18n="why.shift3.from">A one-time contact swap</div>
+      <div class="shift-arrow pixel" aria-hidden="true">→</div>
+      <div class="shift-to" data-i18n="why.shift3.to">A relationship that keeps building</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════ THE IDEA (BUMP → CONNECT → REMEMBER → BUILD) -->
+<section id="concept">
+  <div class="pixel section-label">The idea</div>
+  <h2 class="section-title" data-i18n="concept.title">Meet. Bump twice.<br>And keep the moment.</h2>
+  <p class="section-body" data-i18n="concept.body">
+    DoubleBump is a mobile app for two people who actually met. Tap your phones together twice
+    to connect — and the meeting itself is saved.
+  </p>
+
+  <div class="stage-grid">
+    <div class="stage">
+      <div class="stage-head"><span class="pixel stage-num">01</span><span class="pixel stage-name">BUMP</span></div>
+      <p class="stage-desc" data-i18n="concept.bump">
+        Two people open DoubleBump and tap their phones together twice.
+        That double bump is the one action that proves you actually met.
+      </p>
+    </div>
+    <div class="stage">
+      <div class="stage-head"><span class="pixel stage-num">02</span><span class="pixel stage-name">CONNECT</span></div>
+      <p class="stage-desc" data-i18n="concept.connect">
+        The bump lands and you're connected. Profiles open up — along with the social links
+        you chose to share, like Instagram or X.
+      </p>
+    </div>
+    <div class="stage">
+      <div class="stage-head"><span class="pixel stage-num">03</span><span class="pixel stage-name">REMEMBER</span></div>
+      <p class="stage-desc" data-i18n="concept.remember">
+        The date and the place of the bump are saved. Months later you can still see
+        who you met, when, and where.
+      </p>
+    </div>
+    <div class="stage">
+      <div class="stage-head"><span class="pixel stage-num">04</span><span class="pixel stage-name">BUILD</span></div>
+      <p class="stage-desc" data-i18n="concept.build">
+        Meet the same friend again and bump again. Every meeting adds to the record,
+        and your friend level goes up together.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
 <!-- ═══════════════════════════════════════════════ HOW IT WORKS -->
 <section id="how">
   <div class="pixel section-label">How it works</div>
@@ -810,6 +1097,19 @@
     </div>
   </div>
 
+  <!-- Real demo footage — two phones, two taps, connected -->
+  <figure class="demo">
+    <video class="demo-video" id="demoVideo"
+           src="assets/demo/bump-demo.mp4"
+           poster="assets/demo/bump-demo-poster.webp"
+           width="640" height="360"
+           autoplay muted loop playsinline preload="metadata" disablepictureinpicture
+           aria-label="Two phones tapped together twice; both screens confirm the connection."></video>
+    <figcaption class="demo-cap" data-i18n="how.demo">
+      Real footage — two phones, two taps, connected. Recorded on an early build.
+    </figcaption>
+  </figure>
+
   <div class="pixel section-label" style="margin-top:48px; font-size:8px; color:var(--dim)">
     ⚠ &nbsp; Both phones must be moving. One-sided won't work.
   </div>
@@ -824,19 +1124,27 @@
 
   <div class="showcase-grid">
     <div class="showcase-shot">
-      <img src="assets/features/feature-1.webp" width="1024" height="500" loading="lazy" decoding="async"
+      <img src="assets/features/showcase-1.webp" width="640" height="1386" loading="lazy" decoding="async"
+           data-i18n-src="assets/features/showcase-1-ko.webp"
+           data-i18n-alt="현실에서 만나요 — 진짜 만나는 사람들과 연결해 보세요."
            alt="Meet in real life — connect with people you actually meet, face to face." />
     </div>
     <div class="showcase-shot">
-      <img src="assets/features/feature-2.webp" width="1024" height="500" loading="lazy" decoding="async"
+      <img src="assets/features/showcase-2.webp" width="640" height="1386" loading="lazy" decoding="async"
+           data-i18n-src="assets/features/showcase-2-ko.webp"
+           data-i18n-alt="더블 범프 — 폰을 두 번 부딪히면 즉시 친구가 될 수 있어요."
            alt="Bump twice — double bump your phones and become friends instantly." />
     </div>
     <div class="showcase-shot">
-      <img src="assets/features/feature-3.webp" width="1024" height="500" loading="lazy" decoding="async"
+      <img src="assets/features/showcase-3.webp" width="640" height="1386" loading="lazy" decoding="async"
+           data-i18n-src="assets/features/showcase-3-ko.webp"
+           data-i18n-alt="소중한 기억을 간직하세요 — 처음 만난 장소와 시간을 기억해 보세요."
            alt="Save every memory — remember where and when you first met on your Memory Map." />
     </div>
     <div class="showcase-shot">
-      <img src="assets/features/feature-4.webp" width="1024" height="500" loading="lazy" decoding="async"
+      <img src="assets/features/showcase-4.webp" width="640" height="1386" loading="lazy" decoding="async"
+           data-i18n-src="assets/features/showcase-4-ko.webp"
+           data-i18n-alt="우정을 키워요 — 다시 만나고 범프하고, 함께 레벨업하세요."
            alt="Grow your friendship — meet again, bump again, and level up from Stranger to Soul Mate." />
     </div>
   </div>
@@ -972,6 +1280,38 @@
 
 <hr class="divider" />
 
+<!-- ═══════════════════════════════════════════════ VALUE -->
+<section id="value">
+  <div class="pixel section-label">What you get</div>
+  <h2 class="section-title" data-i18n="value.title">The experience we're building</h2>
+
+  <div class="value-list">
+    <div class="value-item">
+      <h3 class="value-title" data-i18n="value.1.title">Make meeting someone fun again</h3>
+      <p class="value-desc" data-i18n="value.1.desc">
+        Instead of asking for a name or an account, just ask: “Want to DoubleBump?”
+        Two phones tapping twice turns adding a friend into a small game — and an easy icebreaker.
+      </p>
+    </div>
+    <div class="value-item">
+      <h3 class="value-title" data-i18n="value.2.title">Let real meetings build the relationship</h3>
+      <p class="value-desc" data-i18n="value.2.desc">
+        It doesn't end at a name on a list. Meet again, bump again — the count grows and your
+        friend level rises with it. Real meetings move a relationship forward, not online activity.
+      </p>
+    </div>
+    <div class="value-item">
+      <h3 class="value-title" data-i18n="value.3.title">Remember the moment years later</h3>
+      <p class="value-desc" data-i18n="value.3.desc">
+        Moments with friends fade faster than you'd think. Every bump keeps a person, a time and
+        a place — so one day you can look back and say, “That's right, we met here.”
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
 <!-- ═══════════════════════════════════════════════ SECURITY -->
 <div id="security">
   <div class="security-inner">
@@ -1042,6 +1382,24 @@
   </div>
 </section>
 
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════ VISION -->
+<section id="vision">
+  <div class="pixel section-label">Vision</div>
+  <h2 class="section-title" data-i18n="vision.title">Real meetings shouldn't just disappear.</h2>
+  <p class="section-body" data-i18n="vision.body">
+    DoubleBump isn't a friend-adding app or a contact-swapping service. The more of our
+    relationships move online, the more the time we spend together in person is worth keeping.
+    The day you first met. The day you practiced together. The friend you saw every week.
+    The place you travelled to. Each small bump you leave behind adds up to the record of one friendship.
+  </p>
+  <blockquote class="vision-quote" data-i18n="vision.quote">
+    DoubleBump isn't an app that rates your friendships.<br>It's an app that records and celebrates them.
+  </blockquote>
+  <p class="pixel vision-tag">Meet. Bump. Remember.</p>
+</section>
+
 <!-- ═══════════════════════════════════════════════ CTA -->
 <section id="cta">
   <h2 class="pixel hero-title" style="font-size:clamp(18px,4vw,26px)">
@@ -1083,6 +1441,34 @@
     ko: {
       "hero.sub": "실제로 만난 사람과 연결되세요 — 폰을 두 번 부딪히기만 하면 끝. QR 코드도, 아이디도 필요 없어요. 오직 진짜 만남의 순간뿐.",
 
+      "why.title": "온라인에서는 늘 연결되어 있죠.<br>그런데 우리는 무엇을 기억하나요?",
+      "why.body": "온라인에서 친구를 추가하는 데는 1초면 충분합니다. 하지만 내가 <em>실제로</em> 누구를 만났는지, 언제 어디에서 함께했는지는 그렇지 않죠. 새 학기에 만난 친구, 동아리에서 알게 된 사람, 한 번 만나고 어디에도 적어두지 않은 누군가. DoubleBump는 여기서 시작했습니다. 온라인에서 얼마나 연결되어 있는지가 아니라, 실제로 함께한 순간에서요.",
+      "why.shift1.from": "온라인 친구 추가",
+      "why.shift1.to": "실제 만남의 기록",
+      "why.shift2.from": "팔로워와 팔로잉",
+      "why.shift2.to": "실제로 함께한 순간",
+      "why.shift3.from": "일회성 연락처 교환",
+      "why.shift3.to": "계속 쌓이는 관계의 기록",
+
+      "concept.title": "만나고, 두 번 범프하고,<br>그 순간을 남기세요.",
+      "concept.body": "DoubleBump는 실제로 만난 두 사람을 위한 앱입니다. 폰을 두 번 가볍게 부딪혀 연결되고, 그 만남 자체가 기록으로 남습니다.",
+      "concept.bump": "두 사람이 DoubleBump를 실행하고 폰을 두 번 가볍게 부딪힙니다. 두 번의 범프가 실제 만남을 확인하는 하나의 행동이 됩니다.",
+      "concept.connect": "범프가 성공하면 두 사람이 연결됩니다. 프로필과 함께 Instagram, X처럼 직접 등록한 소셜 링크를 서로 확인할 수 있습니다.",
+      "concept.remember": "범프한 날짜와 장소가 기록됩니다. 시간이 지나도 누구와 언제, 어디에서 만났는지 다시 확인할 수 있습니다.",
+      "concept.build": "같은 친구와 다시 만나면 다시 범프하세요. 만남이 반복될수록 기록이 쌓이고 친구 레벨도 함께 올라갑니다.",
+
+      "value.title": "DoubleBump가 만들고 싶은 경험",
+      "value.1.title": "새로운 만남을 조금 더 재미있게",
+      "value.1.desc": "처음 만난 사람에게 이름이나 SNS 계정을 묻는 대신 이렇게 물어보세요. “DoubleBump 한번 할래?” 폰을 두 번 부딪히는 행동은 단순한 친구 추가에 작은 놀이와 아이스브레이킹을 더합니다.",
+      "value.2.title": "실제 만남이 관계의 기록이 되도록",
+      "value.2.desc": "친구를 목록에 추가하는 것으로 끝나지 않습니다. 다시 만나면 다시 범프하고, 만남의 횟수가 쌓이며 친구 레벨도 함께 올라갑니다. 온라인 활동이 아니라 실제 만남이 관계를 만들어갑니다.",
+      "value.3.title": "시간이 지나도 그 순간을 기억하도록",
+      "value.3.desc": "친구들과 함께한 순간은 생각보다 쉽게 흐려집니다. DoubleBump는 각각의 만남에 사람과 시간, 장소를 남깁니다. 나중에 기록을 돌아보며 “우리 그때 여기서 만났었지.”라고 기억할 수 있도록요.",
+
+      "vision.title": "실제 만남이 그냥 사라지지 않도록.",
+      "vision.body": "DoubleBump는 단순한 친구 추가 앱이나 연락처 교환 서비스가 아닙니다. 디지털 관계가 많아지는 시대일수록, 실제로 만나 함께한 시간에도 의미가 있다고 생각합니다. 처음 만난 날, 함께 연습했던 날, 자주 만나던 친구, 함께 여행했던 장소. 그 순간마다 남긴 작은 범프가 쌓이면 한 사람과 함께한 관계의 기록이 됩니다.",
+      "vision.quote": "DoubleBump는 우정을 평가하는 앱이 아니라,<br>우정을 기록하고 기념하는 앱입니다.",
+
       "show.title": "DoubleBump을 눈으로 확인하세요.",
 
       "screens.title": "앱 속을 자세히 들여다보세요.",
@@ -1106,6 +1492,7 @@
       "how.step2.desc": "두 번의 부딪힘이 동작이자 증거예요. BLE가 30cm 이내인지 확인합니다.",
       "how.step3.title": "연결 완료!",
       "how.step3.desc": "화면이 노랗게 빛나고, 연결은 지도에 영원히 저장됩니다.",
+      "how.demo": "실제 촬영 영상 — 폰 두 대, 두 번의 부딪힘, 그리고 연결. 초기 빌드로 촬영했습니다.",
 
       "feat.title": "당신만의 리얼 소셜 지도.",
       "feat.body": "모든 범프가 영원한 추억이 됩니다. 누구와, 어디서 만났는지, 함께한 모든 순간을 확인하세요.",
@@ -1157,6 +1544,14 @@
   const i18nNodes = document.querySelectorAll('[data-i18n]');
   i18nNodes.forEach(el => { el.dataset.en = el.innerHTML; });
 
+  // Localized artwork (showcase banners): the English file stays the inline
+  // src/alt, the Korean one lives in data-i18n-src / data-i18n-alt.
+  const i18nImgs = document.querySelectorAll('img[data-i18n-src]');
+  i18nImgs.forEach(img => {
+    img.dataset.enSrc = img.getAttribute('src');
+    img.dataset.enAlt = img.getAttribute('alt') || '';
+  });
+
   function setLang(lang, persist) {
     const dict = I18N[lang];
     i18nNodes.forEach(el => {
@@ -1166,6 +1561,12 @@
       } else if (dict && dict[key] != null) {
         el.innerHTML = dict[key];
       }
+    });
+    i18nImgs.forEach(img => {
+      const ko = lang === 'ko';
+      const src = ko ? img.dataset.i18nSrc : img.dataset.enSrc;
+      if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+      img.setAttribute('alt', ko ? (img.dataset.i18nAlt || img.dataset.enAlt) : img.dataset.enAlt);
     });
     document.documentElement.lang = lang;
     langToggle.textContent = lang === 'en' ? '한국어' : 'EN';
@@ -1413,6 +1814,19 @@
   // Start animations
   heroLoop();
   howLoop();
+</script>
+
+<!-- ═══════════════════════════════════════════════ DEMO VIDEO -->
+<script>
+  // The demo loops silently on its own, but anyone who asked the OS to reduce
+  // motion gets a still frame plus controls instead of an auto-playing loop.
+  const demoVideo = document.getElementById('demoVideo');
+  if (demoVideo && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    demoVideo.autoplay = false;
+    demoVideo.loop = false;
+    demoVideo.controls = true;
+    demoVideo.pause();
+  }
 </script>
 </body>
 </html>

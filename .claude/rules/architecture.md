@@ -2,25 +2,39 @@
 
 ## File layout
 
-The entire site lives in one `index.html`. Do not split into multiple files unless the file exceeds ~1500 lines and a build step is introduced. Binary assets go under `assets/` — `assets/features/*.webp` (landscape concept banners, `cwebp -q 82`) and `assets/screens/*.webp` (portrait app screenshots, `cwebp -q 80 -resize 640 0`).
+The entire site lives in one `index.html`. Do not split into multiple files unless the file exceeds ~1500 lines and a build step is introduced. Binary assets go under `assets/`:
+
+- `assets/features/*.webp` — portrait App Store shots for `#showcase`, `cwebp -q 82 -resize 640 0`. Each banner ships as a pair: `showcase-N.webp` (English artwork) + `showcase-N-ko.webp` (Korean artwork).
+- `assets/screens/*.webp` — portrait app screenshots, `cwebp -q 80 -resize 640 0`.
+- `assets/demo/` — `bump-demo.mp4` (real bump footage, silent, ~4 s loop) + `bump-demo-poster.webp`.
+
+Source media lives outside the repo; re-encode rather than committing the originals. The demo clip is trimmed and carries a `boxblur` mask over the profile card, because the raw recording shows real email addresses. **Any new footage must be checked for personal data before it is committed.**
 
 Order inside `index.html`:
 1. `<head>` — meta, fonts, all CSS in one `<style>` block
-2. `<body>` — HTML sections in page order (hero → how → showcase → features → screens → security → faq → cta → footer)
+2. `<body>` — HTML sections in page order (hero → why → concept → how → showcase → features → screens → value → security → faq → vision → cta → footer)
 3. `<script>` — all JS at the bottom, no inline handlers
 
 ## Section IDs
 
+The page tells one story in order: **why → what → how → proof → value → vision.**
+
 | ID | Purpose |
 |----|---------|
 | `#hero` | Full-viewport opener with phone animation |
-| `#how` | How-it-works with step cards + mini animation |
-| `#showcase` | Visual feature banners (landscape WebP, responsive grid) |
+| `#why` | The problem — online connection vs. remembering a real meeting, plus three `from → to` shift rows |
+| `#concept` | The idea in four stages: `BUMP → CONNECT → REMEMBER → BUILD` (2×2 card grid) |
+| `#how` | How-it-works with step cards + mini animation + the real demo video |
+| `#showcase` | App Store banners (portrait WebP, 4-up desktop / 2-up mobile, language-swapped) |
 | `#features` | Feature card grid |
 | `#screens` | Portrait app screenshots in phone frames, each with a title + description caption |
+| `#value` | What the experience gives the user — three long-form value cards |
 | `#security` | Security model (BLE / BUMP / MOTION layers) |
+| `#vision` | Closing statement + pull quote ("records and celebrates", not "rates") |
 | `#cta` | Call-to-action before footer |
 | `footer` | Links + copyright |
+
+`#why`, `#concept`, `#value` and `#vision` carry the product-introduction narrative — keep their copy aligned with each other when any one of them changes.
 
 ## JS conventions
 
@@ -33,7 +47,7 @@ Order inside `index.html`:
 
 The `<head>` carries the full SEO surface — keep these in sync when content changes:
 - Meta: description, keywords, canonical, Open Graph + Twitter cards (`og:image`/`twitter:image` point to the dedicated 1200×630 `assets/og-image.png`; regenerate it from `assets/og-image.source.html` via headless Chrome `--screenshot`), `og:locale` en_US + `ko_KR` alternate, `theme-color`.
-- One JSON-LD `@graph` with: `WebSite`, `WebPage` (+ `speakable`, `dateModified`), `SoftwareApplication` (+ `screenshot` array of the real `assets/screens/*.webp`, `downloadUrl` for both stores), `HowTo`, `FAQPage`. The `FAQPage` answers mirror the visible `#faq` copy — update both together.
+- One JSON-LD `@graph` with: `WebSite`, `WebPage` (+ `speakable`, `dateModified`), `SoftwareApplication` (+ `screenshot` array of the real `assets/screens/*.webp`, `downloadUrl` for both stores), `VideoObject` (the `#how` demo clip — keep `duration`/`uploadDate` truthful if the clip is re-cut), `HowTo`, `FAQPage`. The `FAQPage` answers mirror the visible `#faq` copy — update both together.
 - `sitemap.xml` + `robots.txt` live at root; `robots.txt` explicitly allows AI/answer-engine crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …) for AEO/GEO. Add any new page to `sitemap.xml`.
 - Dates in structured data are absolute (`2026-07-10`); bump `dateModified`/`lastmod` on meaningful content changes.
 
@@ -47,6 +61,7 @@ English is the fallback; Korean is a runtime toggle (no page reload, no separate
 - Startup language priority: saved `localStorage['db_lang']` (only ever `'en'`/`'ko'`) → `detectLang()` → `'en'`. `detectLang()` walks `navigator.languages` (falling back to `navigator.language`) and returns `'ko'` for any Korean tag (`ko`, `ko-KR`, `ko-Kore-KR`).
 - `setLang(lang, persist)` — only pass `persist: true` from the toggle click. Auto-detected languages must **not** be written to `localStorage`, otherwise a stale first-visit value would outrank the visitor's later browser locale forever.
 - `setLang` also updates `<html lang>` and the toggle button label.
+- **Localized artwork**: an `<img data-i18n-src="…-ko.webp" data-i18n-alt="…">` gets its `src` and `alt` swapped by `setLang`. The inline `src`/`alt` stay English and are snapshotted into `dataset.enSrc` / `dataset.enAlt` on load. Used by `#showcase`; the English and Korean files must be the same pixel dimensions or the grid reflows on toggle.
 - Text is swapped from a bottom-of-`<body>` script, so Korean visitors see a brief flash of English. Accepted trade-off — fixing it means moving translation into `<head>` or shipping separate `ko/` pages.
 - Pixel-font decorative text (DOUBLE BUMP logo, `.section-label` tags, `.layer-badge`, step nums, `Ready to bump?`) stays English in both languages — `Press Start 2P` has no Korean glyphs. Do not add `data-i18n` to `.pixel` elements.
 

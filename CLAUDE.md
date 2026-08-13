@@ -25,8 +25,9 @@ robots.txt        # crawler rules (allows AI/answer-engine bots) + sitemap ref
 sitemap.xml       # URL list for search engines
 assets/
   og-image.png    # 1200×630 social share image (source: og-image.source.html)
-  features/       # landscape feature banner WebP (#showcase section)
+  features/       # portrait App Store shots, EN + `-ko` pair each (#showcase section)
   screens/        # portrait app screenshot WebP (#screens section)
+  demo/           # bump-demo.mp4 + poster — real footage in #how
 CLAUDE.md         # this file
 .claude/
   commands/       # slash commands (legacy — prefer skills/)
