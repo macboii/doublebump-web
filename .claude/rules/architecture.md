@@ -22,7 +22,7 @@ The page tells one story in order: **proof → why → what → how → value �
 | ID | Purpose |
 |----|---------|
 | `#hero` | Full-viewport opener with phone animation |
-| `#tryit` | Real demo video + "both install → open → bump twice" steps + store buttons + a tester/beta line. The earliest conversion point on the page — see it, then act. |
+| `#tryit` | Real demo video + "both install → open → bump twice" steps + store buttons. The earliest conversion point on the page — see it, then act. |
 | `#why` | The problem — online connection vs. remembering a real meeting, plus three `from → to` shift rows |
 | `#concept` | The idea in four stages: `BUMP → CONNECT → REMEMBER → BUILD` (2×2 card grid), plus a closing callout contrasting DoubleBump's repeat-bump model against apps that stop at a contact swap |
 | `#how` | How-it-works with step cards + mini animation (text/steps only — the real demo video lives in `#tryit`, not here) |
@@ -31,7 +31,7 @@ The page tells one story in order: **proof → why → what → how → value �
 | `#screens` | Portrait app screenshots in phone frames, each with a title + description caption |
 | `#value` | What the experience gives the user — three long-form value cards |
 | `#security` | Security model (BLE / BUMP / MOTION layers). Copy avoids absolute claims ("impossible", "no spoofing") and raw specs (dBm, cm, ms) in visible text — keep it to what a non-technical reader needs; exact numbers still live in the JSON-LD description for search engines. |
-| `#vision` | Closing statement + pull quote ("records and celebrates", not "rates") |
+| `#vision` | Closing statement + pull quote — meeting a friend and recording the moment is how the friendship grows |
 | `#cta` | Call-to-action before footer |
 | `footer` | Links + copyright |
 
