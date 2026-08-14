@@ -920,11 +920,29 @@
       padding: 80px 24px 100px;
     }
 
-    .qr-row {
+    /* Store buttons + QR row, grouped so the QR row's width always matches
+       the buttons row above it — see styling.md. No CSS-only intrinsic-
+       sizing trick (grid auto-column, display:table) survived nesting
+       .qr-code's own width:100%/aspect-ratio several levels deep — each
+       percentage width along the chain resolves against an indefinite
+       size during the "how wide do you want to be" query and reports
+       "fill everything" instead of its real content size. syncQrWidths()
+       measures .store-buttons after layout and sets .qr-row's width in
+       px directly, sidestepping the issue entirely. Used in #hero and
+       #cta — #tryit keeps a plain, unwrapped .store-buttons. */
+    .cta-actions {
       display: flex;
-      gap: 28px;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .qr-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+      max-width: 500px; /* fallback until syncQrWidths() sets an exact px width */
     }
 
     .qr-item {
@@ -935,8 +953,9 @@
     }
 
     .qr-code {
-      width: 128px;
-      height: 128px;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
       border-radius: 14px;
       border: 1px solid #2a2a2a;
       /* QR modules need a real white background to stay scannable, so this
@@ -1064,17 +1083,36 @@
     <p class="hero-context" data-i18n="hero.context">At school, on trips, or at meetups.</p>
   </div>
 
-  <div class="store-buttons">
-    <a class="btn-primary" href="https://apps.apple.com/app/id6770075271"
-       data-i18n-href="https://apps.apple.com/kr/app/id6770075271" target="_blank" rel="noopener">
-      <svg class="apple-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35c-1.09-.46-2.09-.48-3.24 0c-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8c1.18-.24 2.31-.93 3.57-.84c1.51.12 2.65.72 3.4 1.8c-3.12 1.87-2.38 5.98.48 7.13c-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25c.29 2.58-2.34 4.5-3.74 4.25"/></svg>
-      <span data-i18n="btn.appstore">App Store</span>
-    </a>
-    <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.doublebump.android"
-       data-i18n-href="https://play.google.com/store/apps/details?id=com.doublebump.android&hl=ko&gl=KR" target="_blank" rel="noopener">
-      <svg class="android-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m22.018 13.298l-3.919 2.218l-3.515-3.493l3.543-3.521l3.891 2.202a1.49 1.49 0 0 1 0 2.594M1.337.924a1.5 1.5 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087zm12.207 10.065l3.258-3.238L3.45.195a1.47 1.47 0 0 0-.946-.179zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54z"/></svg>
-      <span data-i18n="btn.googleplay">Google Play</span>
-    </a>
+  <div class="cta-actions">
+    <div class="store-buttons">
+      <a class="btn-primary" href="https://apps.apple.com/app/id6770075271"
+         data-i18n-href="https://apps.apple.com/kr/app/id6770075271" target="_blank" rel="noopener">
+        <svg class="apple-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35c-1.09-.46-2.09-.48-3.24 0c-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8c1.18-.24 2.31-.93 3.57-.84c1.51.12 2.65.72 3.4 1.8c-3.12 1.87-2.38 5.98.48 7.13c-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25c.29 2.58-2.34 4.5-3.74 4.25"/></svg>
+        <span data-i18n="btn.appstore">App Store</span>
+      </a>
+      <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.doublebump.android"
+         data-i18n-href="https://play.google.com/store/apps/details?id=com.doublebump.android&hl=ko&gl=KR" target="_blank" rel="noopener">
+        <svg class="android-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m22.018 13.298l-3.919 2.218l-3.515-3.493l3.543-3.521l3.891 2.202a1.49 1.49 0 0 1 0 2.594M1.337.924a1.5 1.5 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087zm12.207 10.065l3.258-3.238L3.45.195a1.47 1.47 0 0 0-.946-.179zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54z"/></svg>
+        <span data-i18n="btn.googleplay">Google Play</span>
+      </a>
+    </div>
+
+    <div class="qr-row">
+      <div class="qr-item">
+        <img class="qr-code" src="assets/qr/appstore-qr.webp" width="128" height="128" loading="lazy" decoding="async"
+             data-i18n-src="assets/qr/appstore-qr-ko.webp"
+             data-i18n-alt="스캔해서 앱스토어에서 다운로드"
+             alt="Scan to download DoubleBump on the App Store" />
+        <span class="qr-label" data-i18n="cta.qr.ios">Scan for iPhone</span>
+      </div>
+      <div class="qr-item">
+        <img class="qr-code" src="assets/qr/googleplay-qr.webp" width="128" height="128" loading="lazy" decoding="async"
+             data-i18n-src="assets/qr/googleplay-qr-ko.webp"
+             data-i18n-alt="스캔해서 Google Play에서 다운로드"
+             alt="Scan to download DoubleBump on Google Play" />
+        <span class="qr-label" data-i18n="cta.qr.android">Scan for Android</span>
+      </div>
+    </div>
   </div>
 
 </section>
@@ -1562,33 +1600,35 @@
   <p class="hero-sub" data-i18n="cta.sub">
     Free on iOS and Android.
   </p>
-  <div class="store-buttons">
-    <a class="btn-primary" href="https://apps.apple.com/app/id6770075271"
-       data-i18n-href="https://apps.apple.com/kr/app/id6770075271" target="_blank" rel="noopener">
-      <svg class="apple-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35c-1.09-.46-2.09-.48-3.24 0c-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8c1.18-.24 2.31-.93 3.57-.84c1.51.12 2.65.72 3.4 1.8c-3.12 1.87-2.38 5.98.48 7.13c-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25c.29 2.58-2.34 4.5-3.74 4.25"/></svg>
-      <span data-i18n="btn.appstore">App Store</span>
-    </a>
-    <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.doublebump.android"
-       data-i18n-href="https://play.google.com/store/apps/details?id=com.doublebump.android&hl=ko&gl=KR" target="_blank" rel="noopener">
-      <svg class="android-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m22.018 13.298l-3.919 2.218l-3.515-3.493l3.543-3.521l3.891 2.202a1.49 1.49 0 0 1 0 2.594M1.337.924a1.5 1.5 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087zm12.207 10.065l3.258-3.238L3.45.195a1.47 1.47 0 0 0-.946-.179zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54z"/></svg>
-      <span data-i18n="btn.googleplay">Google Play</span>
-    </a>
-  </div>
-
-  <div class="qr-row">
-    <div class="qr-item">
-      <img class="qr-code" src="assets/qr/appstore-qr.webp" width="640" height="640" loading="lazy" decoding="async"
-           data-i18n-src="assets/qr/appstore-qr-ko.webp"
-           data-i18n-alt="스캔해서 앱스토어에서 다운로드"
-           alt="Scan to download DoubleBump on the App Store" />
-      <span class="qr-label" data-i18n="cta.qr.ios">Scan for iPhone</span>
+  <div class="cta-actions">
+    <div class="store-buttons">
+      <a class="btn-primary" href="https://apps.apple.com/app/id6770075271"
+         data-i18n-href="https://apps.apple.com/kr/app/id6770075271" target="_blank" rel="noopener">
+        <svg class="apple-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35c-1.09-.46-2.09-.48-3.24 0c-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8c1.18-.24 2.31-.93 3.57-.84c1.51.12 2.65.72 3.4 1.8c-3.12 1.87-2.38 5.98.48 7.13c-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25c.29 2.58-2.34 4.5-3.74 4.25"/></svg>
+        <span data-i18n="btn.appstore">App Store</span>
+      </a>
+      <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.doublebump.android"
+         data-i18n-href="https://play.google.com/store/apps/details?id=com.doublebump.android&hl=ko&gl=KR" target="_blank" rel="noopener">
+        <svg class="android-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m22.018 13.298l-3.919 2.218l-3.515-3.493l3.543-3.521l3.891 2.202a1.49 1.49 0 0 1 0 2.594M1.337.924a1.5 1.5 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087zm12.207 10.065l3.258-3.238L3.45.195a1.47 1.47 0 0 0-.946-.179zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54z"/></svg>
+        <span data-i18n="btn.googleplay">Google Play</span>
+      </a>
     </div>
-    <div class="qr-item">
-      <img class="qr-code" src="assets/qr/googleplay-qr.webp" width="640" height="640" loading="lazy" decoding="async"
-           data-i18n-src="assets/qr/googleplay-qr-ko.webp"
-           data-i18n-alt="스캔해서 Google Play에서 다운로드"
-           alt="Scan to download DoubleBump on Google Play" />
-      <span class="qr-label" data-i18n="cta.qr.android">Scan for Android</span>
+
+    <div class="qr-row">
+      <div class="qr-item">
+        <img class="qr-code" src="assets/qr/appstore-qr.webp" width="128" height="128" loading="lazy" decoding="async"
+             data-i18n-src="assets/qr/appstore-qr-ko.webp"
+             data-i18n-alt="스캔해서 앱스토어에서 다운로드"
+             alt="Scan to download DoubleBump on the App Store" />
+        <span class="qr-label" data-i18n="cta.qr.ios">Scan for iPhone</span>
+      </div>
+      <div class="qr-item">
+        <img class="qr-code" src="assets/qr/googleplay-qr.webp" width="128" height="128" loading="lazy" decoding="async"
+             data-i18n-src="assets/qr/googleplay-qr-ko.webp"
+             data-i18n-alt="스캔해서 Google Play에서 다운로드"
+             alt="Scan to download DoubleBump on Google Play" />
+        <span class="qr-label" data-i18n="cta.qr.android">Scan for Android</span>
+      </div>
     </div>
   </div>
 </section>
@@ -1773,7 +1813,20 @@
     // Only an explicit toggle is remembered — an auto-detected language stays
     // live so a browser locale change is picked up on the next visit.
     if (persist) { try { localStorage.setItem(LANG_KEY, lang); } catch (e) {} }
+    syncQrWidths();
   }
+
+  // Sizes each .qr-row to match its .store-buttons' rendered width. CSS
+  // alone can't do this reliably here — see the .cta-actions comment.
+  // Re-run on language change (button label width changes) and on resize.
+  function syncQrWidths() {
+    document.querySelectorAll('.cta-actions').forEach(wrap => {
+      const buttons = wrap.querySelector('.store-buttons');
+      const qr = wrap.querySelector('.qr-row');
+      if (buttons && qr) qr.style.width = buttons.getBoundingClientRect().width + 'px';
+    });
+  }
+  window.addEventListener('resize', syncQrWidths);
 
   // Browser/OS locale → 'ko' for any Korean tag (ko, ko-KR, ko-Kore-KR …).
   function detectLang() {

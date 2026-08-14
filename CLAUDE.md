@@ -28,7 +28,7 @@ assets/
   features/       # portrait App Store shots, EN + `-ko` pair each (#showcase section)
   screens/        # portrait app screenshots, EN + `-ko` pair each (#screens section)
   demo/           # bump-demo.mp4 + poster — real footage in #tryit
-  qr/             # App Store / Google Play QR codes, EN + `-ko` pair each (#cta section)
+  qr/             # App Store / Google Play QR codes, EN + `-ko` pair each (#hero, #cta)
 CLAUDE.md         # this file
 .claude/
   commands/       # slash commands (legacy — prefer skills/)
