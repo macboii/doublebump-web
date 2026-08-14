@@ -55,7 +55,7 @@
         "url": "https://doublebump.com",
         "name": "DoubleBump — Meet. Bump. Remember.",
         "inLanguage": "en",
-        "dateModified": "2026-08-13",
+        "dateModified": "2026-08-14",
         "primaryImageOfPage": "https://doublebump.com/assets/og-image.png",
         "speakable": {
           "@type": "SpeakableSpecification",
@@ -293,11 +293,24 @@
       letter-spacing: 1px;
     }
 
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
     .hero-sub {
       font-size: clamp(14px, 2.5vw, 18px);
       color: var(--gray);
       max-width: 420px;
       line-height: 1.7;
+    }
+
+    .hero-context {
+      font-size: 13px;
+      color: var(--dim);
+      letter-spacing: 0.3px;
     }
 
     .store-buttons {
@@ -463,6 +476,34 @@
     .stage-desc {
       font-size: 13px;
       color: var(--gray);
+      line-height: 1.7;
+    }
+
+    .concept-callout {
+      margin-top: 32px;
+      max-width: 560px;
+    }
+
+    .concept-callout strong { color: var(--yellow); }
+
+    /* ─── TRY IT NOW (proof + friend CTA, right after hero) ── */
+    #tryit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .tryit-steps {
+      margin-top: 32px;
+      margin-bottom: 40px;
+    }
+
+    .tryit-tester {
+      margin-top: 24px;
+      max-width: 480px;
+      font-size: 13px;
+      color: var(--dim);
       line-height: 1.7;
     }
 
@@ -988,10 +1029,13 @@
     <p class="pixel hero-tagline">Meet. Bump. Remember.</p>
   </div>
 
-  <p class="hero-sub" data-i18n="hero.sub">
-    Connect with people you actually meet — just bump phones twice.
-    No QR codes. No usernames. Just a physical moment.
-  </p>
+  <div class="hero-copy">
+    <p class="hero-sub" data-i18n="hero.sub">
+      Connect with people you actually meet — just bump phones twice.
+      No QR codes. No usernames. Just a physical moment.
+    </p>
+    <p class="hero-context" data-i18n="hero.context">At clubs, on campus, on trips, or wherever you meet.</p>
+  </div>
 
   <div class="store-buttons">
     <a class="btn-primary" href="https://apps.apple.com/app/id6770075271" target="_blank" rel="noopener">
@@ -1004,6 +1048,70 @@
     </a>
   </div>
 
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════ TRY IT NOW -->
+<section id="tryit">
+  <div class="pixel section-label">See it for yourself</div>
+  <h2 class="section-title" data-i18n="tryit.title">This is what it looks like.</h2>
+  <p class="section-body" data-i18n="tryit.body">
+    Real footage, not a mockup. Both of you open DoubleBump and bump phones twice — that's the whole interaction.
+  </p>
+
+  <!-- Real demo footage — two phones, two taps, connected -->
+  <figure class="demo">
+    <video class="demo-video" id="demoVideo"
+           src="assets/demo/bump-demo.mp4"
+           poster="assets/demo/bump-demo-poster.webp"
+           width="640" height="360"
+           autoplay muted loop playsinline preload="metadata" disablepictureinpicture
+           aria-label="Two phones tapped together twice; both screens confirm the connection."></video>
+    <figcaption class="demo-cap" data-i18n="how.demo">
+      Real footage — two phones, two taps, connected. Recorded on an early build.
+    </figcaption>
+  </figure>
+
+  <div class="how-note pixel" data-i18n="how.note">
+    ⚠ &nbsp; Both phones must be moving. One-sided won't work.
+  </div>
+
+  <div class="steps tryit-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <div class="step-title" data-i18n="tryit.step1">Both install the app</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <div class="step-title" data-i18n="tryit.step2">Open DoubleBump together</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <div class="step-title" data-i18n="tryit.step3">Bump twice — done</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="store-buttons">
+    <a class="btn-primary" href="https://apps.apple.com/app/id6770075271" target="_blank" rel="noopener">
+      <svg class="apple-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35c-1.09-.46-2.09-.48-3.24 0c-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8c1.18-.24 2.31-.93 3.57-.84c1.51.12 2.65.72 3.4 1.8c-3.12 1.87-2.38 5.98.48 7.13c-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25c.29 2.58-2.34 4.5-3.74 4.25"/></svg>
+      <span data-i18n="btn.appstore">App Store</span>
+    </a>
+    <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.doublebump.android" target="_blank" rel="noopener">
+      <svg class="android-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m22.018 13.298l-3.919 2.218l-3.515-3.493l3.543-3.521l3.891 2.202a1.49 1.49 0 0 1 0 2.594M1.337.924a1.5 1.5 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087zm12.207 10.065l3.258-3.238L3.45.195a1.47 1.47 0 0 0-.946-.179zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54z"/></svg>
+      <span data-i18n="btn.googleplay">Google Play</span>
+    </a>
+  </div>
+
+  <p class="tryit-tester" data-i18n="tryit.tester">
+    DoubleBump is testing with university students right now. Bump with a friend and tell us what worked.
+  </p>
 </section>
 
 <hr class="divider" />
@@ -1078,6 +1186,11 @@
       </p>
     </div>
   </div>
+
+  <p class="section-body concept-callout" data-i18n="concept.callout">
+    Most connection apps stop at swapping contacts. <strong>DoubleBump doesn't</strong> —
+    meet again, bump again, and the record keeps building.
+  </p>
 </section>
 
 <hr class="divider" />
@@ -1115,23 +1228,6 @@
         <div class="step-desc" data-i18n="how.step3.desc">Screens glow yellow. Your connection is saved — forever on your map.</div>
       </div>
     </div>
-  </div>
-
-  <!-- Real demo footage — two phones, two taps, connected -->
-  <figure class="demo">
-    <video class="demo-video" id="demoVideo"
-           src="assets/demo/bump-demo.mp4"
-           poster="assets/demo/bump-demo-poster.webp"
-           width="640" height="360"
-           autoplay muted loop playsinline preload="metadata" disablepictureinpicture
-           aria-label="Two phones tapped together twice; both screens confirm the connection."></video>
-    <figcaption class="demo-cap" data-i18n="how.demo">
-      Real footage — two phones, two taps, connected. Recorded on an early build.
-    </figcaption>
-  </figure>
-
-  <div class="how-note pixel" data-i18n="how.note">
-    ⚠ &nbsp; Both phones must be moving. One-sided won't work.
   </div>
 </section>
 
@@ -1245,6 +1341,8 @@
     <div class="screen-item">
       <div class="screen-frame">
         <img src="assets/screens/screen-bump.webp" width="640" height="1386" loading="lazy" decoding="async"
+             data-i18n-src="assets/screens/screen-bump-ko.webp"
+             data-i18n-alt="더블범프 범프 화면 — 근처에 연결할 수 있는 상대가 보입니다."
              alt="DoubleBump bump screen showing a nearby user ready to connect." />
       </div>
       <div class="screen-cap-title" data-i18n="sc.bump.t">Bump Screen</div>
@@ -1254,6 +1352,8 @@
     <div class="screen-item">
       <div class="screen-frame">
         <img src="assets/screens/screen-feed.webp" width="640" height="1386" loading="lazy" decoding="async"
+             data-i18n-src="assets/screens/screen-feed-ko.webp"
+             data-i18n-alt="더블범프 라이브 피드 — 최근 범프 기록이 지도 위에 표시됩니다."
              alt="DoubleBump live feed of recent bumps pinned on a map." />
       </div>
       <div class="screen-cap-title" data-i18n="sc.feed.t">Live Feed</div>
@@ -1263,6 +1363,8 @@
     <div class="screen-item">
       <div class="screen-frame">
         <img src="assets/screens/screen-connection.webp" width="640" height="1386" loading="lazy" decoding="async"
+             data-i18n-src="assets/screens/screen-connection-ko.webp"
+             data-i18n-alt="더블범프 연결 프로필 — 범프 통계와 만남 기록을 확인할 수 있습니다."
              alt="A DoubleBump connection profile with bump stats and history." />
       </div>
       <div class="screen-cap-title" data-i18n="sc.conn.t">Connection Profile</div>
@@ -1272,6 +1374,8 @@
     <div class="screen-item">
       <div class="screen-frame">
         <img src="assets/screens/screen-levels.webp" width="640" height="1386" loading="lazy" decoding="async"
+             data-i18n-src="assets/screens/screen-levels-ko.webp"
+             data-i18n-alt="더블범프 친밀도 레벨 — 낯선 사람에서 베스트 프렌드까지."
              alt="DoubleBump friendship level ladder from Stranger to Best Friend." />
       </div>
       <div class="screen-cap-title" data-i18n="sc.levels.t">Friendship Levels</div>
@@ -1281,6 +1385,8 @@
     <div class="screen-item">
       <div class="screen-frame">
         <img src="assets/screens/screen-profile.webp" width="640" height="1386" loading="lazy" decoding="async"
+             data-i18n-src="assets/screens/screen-profile-ko.webp"
+             data-i18n-alt="더블범프 내 프로필 — 범프 통계와 공유 링크를 확인할 수 있습니다."
              alt="A DoubleBump user profile with bump stats and shareable links." />
       </div>
       <div class="screen-cap-title" data-i18n="sc.profile.t">Your Profile</div>
@@ -1290,6 +1396,8 @@
     <div class="screen-item">
       <div class="screen-frame">
         <img src="assets/screens/screen-map.webp" width="640" height="1386" loading="lazy" decoding="async"
+             data-i18n-src="assets/screens/screen-map-ko.webp"
+             data-i18n-alt="더블범프 범프 맵 — 날짜와 장소, 메모가 담긴 만남의 타임라인."
              alt="DoubleBump Bump Map showing a timeline of past meetings with notes." />
       </div>
       <div class="screen-cap-title" data-i18n="sc.map.t">Bump Map</div>
@@ -1337,7 +1445,7 @@
   <div class="security-inner">
     <div>
       <div class="pixel section-label">Security Model</div>
-      <h2 class="section-title security-title" data-i18n="sec.title">Three layers. No spoofing.</h2>
+      <h2 class="section-title security-title" data-i18n="sec.title">Three layers of real-world verification.</h2>
       <p class="section-body" style="margin-top:8px" data-i18n="sec.body">
         A connection can only happen if all three layers pass simultaneously.
       </p>
@@ -1346,22 +1454,21 @@
       <div class="layer">
         <div class="layer-badge">BLE</div>
         <div class="layer-text" data-i18n="sec.ble">
-          <strong>Proximity proof</strong> — Bluetooth RSSI must exceed −40 dBm (~30 cm).
-          Remote spoofing is physically impossible.
+          <strong>Proximity</strong> — Bluetooth confirms both phones are close enough to actually touch.
         </div>
       </div>
       <div class="layer">
         <div class="layer-badge">BUMP</div>
         <div class="layer-text" data-i18n="sec.bump">
-          <strong>Intent proof</strong> — The double-tap gesture is required.
-          A single accidental nudge will never create a connection.
+          <strong>Intent</strong> — The double-tap gesture is required.
+          A single accidental nudge won't create a connection.
         </div>
       </div>
       <div class="layer">
         <div class="layer-badge">MOTION</div>
         <div class="layer-text" data-i18n="sec.motion">
-          <strong>Shared event proof</strong> — Motion signatures from both phones are compared.
-          Both devices must have experienced the same physical collision within ±400 ms.
+          <strong>Shared motion</strong> — Both phones' motion sensors have to register
+          the same real-world bump at the same instant.
         </div>
       </div>
     </div>
@@ -1377,7 +1484,7 @@
   <div class="faq-list">
     <div class="faq-item">
       <h3 class="faq-q" data-i18n="faq1.q">How does DoubleBump work?</h3>
-      <p class="faq-a" data-i18n="faq1.a">Both users open DoubleBump and tap their phones together twice. Bluetooth Low Energy confirms you're within 30 cm. Motion sensors verify both devices felt the same physical impact within 400 ms. The double-tap confirms mutual intent. All three checks must pass simultaneously — accidental bumps and remote spoofing are both impossible.</p>
+      <p class="faq-a" data-i18n="faq1.a">Both users open DoubleBump and tap their phones together twice. Bluetooth confirms you're close enough to touch, motion sensors confirm both phones felt the same real impact, and the double-tap confirms you both meant to connect. All three have to line up, so accidental bumps and remote faking aren't realistic.</p>
     </div>
     <div class="faq-item">
       <h3 class="faq-q" data-i18n="faq2.q">Does DoubleBump work between iPhone and Android?</h3>
@@ -1393,7 +1500,7 @@
     </div>
     <div class="faq-item">
       <h3 class="faq-q" data-i18n="faq5.q">Can someone fake a DoubleBump connection remotely?</h3>
-      <p class="faq-a" data-i18n="faq5.a">No. Remote spoofing is physically impossible. BLE proximity requires being within 30 cm. The motion signature must match within 400 ms of a real physical collision. Without actually being there and physically tapping phones, none of the three layers can pass.</p>
+      <p class="faq-a" data-i18n="faq5.a">Realistically, no. Bluetooth requires the phones to be close enough to touch, and the motion sensors need to register the same real-world bump at the same moment. Without both people actually being there and tapping phones together, those checks won't line up.</p>
     </div>
     <div class="faq-item">
       <h3 class="faq-q" data-i18n="faq6.q">Is DoubleBump free?</h3>
@@ -1463,6 +1570,14 @@
       "btn.googleplay": "Google Play에서 받기",
 
       "hero.sub": "실제로 만난 사람과 연결되세요 — 폰을 두 번 부딪히기만 하면 끝. QR 코드도, 아이디도 필요 없어요. 오직 진짜 만남의 순간뿐.",
+      "hero.context": "동아리, 학교, 여행, 모임에서 만난 사람들과.",
+
+      "tryit.title": "실제로는 이렇게 생겼습니다.",
+      "tryit.body": "연출이 아니라 실제 촬영 영상이에요. 둘 다 DoubleBump를 열고 폰을 두 번 부딪히면 끝입니다.",
+      "tryit.step1": "둘 다 앱 설치",
+      "tryit.step2": "함께 DoubleBump 열기",
+      "tryit.step3": "두 번 범프 — 끝",
+      "tryit.tester": "DoubleBump는 지금 대학생들과 함께 테스트하고 있습니다. 친구와 한번 범프해보고 어떤 점이 좋았는지 알려주세요.",
 
       "why.title": "온라인에서는 늘 연결되어 있죠.<br>그런데 우리는 무엇을 기억하나요?",
       "why.body": "온라인에서 친구를 추가하는 데는 1초면 충분합니다. 하지만 내가 <em>실제로</em> 누구를 만났는지, 언제 어디에서 함께했는지는 그렇지 않죠. 새 학기에 만난 친구, 동아리에서 알게 된 사람, 한 번 만나고 어디에도 적어두지 않은 누군가. DoubleBump는 여기서 시작했습니다. 온라인에서 얼마나 연결되어 있는지가 아니라, 실제로 함께한 순간에서요.",
@@ -1479,6 +1594,7 @@
       "concept.connect": "범프가 성공하면 두 사람이 연결됩니다. 프로필과 함께 Instagram, X처럼 직접 등록한 소셜 링크를 서로 확인할 수 있습니다.",
       "concept.remember": "범프한 날짜와 장소가 기록됩니다. 시간이 지나도 누구와 언제, 어디에서 만났는지 다시 확인할 수 있습니다.",
       "concept.build": "같은 친구와 다시 만나면 다시 범프하세요. 만남이 반복될수록 기록이 쌓이고 친구 레벨도 함께 올라갑니다.",
+      "concept.callout": "대부분의 만남 앱은 연락처를 교환하고 끝나지만, <strong>DoubleBump는 다릅니다</strong> — 다시 만나 다시 범프하면 기록이 계속 쌓입니다.",
 
       "value.title": "DoubleBump가 만들고 싶은 경험",
       "value.1.title": "새로운 만남을 조금 더 재미있게",
@@ -1533,14 +1649,14 @@
       "feat.radar.title": "실시간 주변 레이더",
       "feat.radar.desc": "부딪히기 전에 주변에서 누가 DoubleBump를 켰는지 확인하세요. 블루투스가 최대 2m를 스캔해 이름을 먼저 보여줍니다.",
 
-      "sec.title": "3중 보안. 위조 불가.",
+      "sec.title": "3단계 현장 검증.",
       "sec.body": "세 가지 계층이 동시에 통과할 때만 연결이 이루어집니다.",
-      "sec.ble": "<strong>근접 증명</strong> — 블루투스 RSSI가 −40 dBm(약 30cm)을 넘어야 합니다. 원격 위조는 물리적으로 불가능해요.",
-      "sec.bump": "<strong>의도 증명</strong> — 두 번의 부딪힘 동작이 필요합니다. 우연한 한 번의 접촉으로는 절대 연결되지 않아요.",
-      "sec.motion": "<strong>공유 이벤트 증명</strong> — 양쪽 폰의 모션 시그니처를 비교합니다. 두 기기가 ±400ms 이내에 동일한 물리적 충돌을 겪어야 해요.",
+      "sec.ble": "<strong>근접 확인</strong> — 두 폰이 실제로 닿을 만큼 가까운지 블루투스로 확인합니다.",
+      "sec.bump": "<strong>의도 확인</strong> — 두 번의 부딪힘 동작이 필요합니다. 우연히 한 번 스친 정도로는 연결되지 않아요.",
+      "sec.motion": "<strong>움직임 확인</strong> — 두 폰의 모션 센서가 같은 순간 실제 부딪힘을 함께 감지해야 해요.",
 
       "faq1.q": "DoubleBump는 어떻게 작동하나요?",
-      "faq1.a": "두 사용자가 DoubleBump를 열고 폰을 두 번 부딪힙니다. 블루투스 저전력(BLE)이 30cm 이내인지 확인하고, 모션 센서가 두 기기가 400ms 이내에 같은 충돌을 느꼈는지 검증하며, 두 번의 부딪힘이 상호 의도를 확인합니다. 세 가지 검사가 동시에 통과해야 하므로 우연한 접촉과 원격 위조 모두 불가능합니다.",
+      "faq1.a": "두 사용자가 DoubleBump를 열고 폰을 두 번 부딪힙니다. 블루투스로 두 폰이 실제로 닿을 만큼 가까운지 확인하고, 모션 센서로 두 폰이 같은 충격을 느꼈는지 확인하며, 두 번의 부딪힘으로 서로 연결할 의도를 확인합니다. 이 세 가지가 모두 맞아떨어져야 해서 우연한 접촉이나 원격으로 속이는 건 사실상 불가능해요.",
       "faq2.q": "아이폰과 안드로이드 간에도 작동하나요?",
       "faq2.a": "네. 크로스플랫폼 BLE 프로토콜이 작동 중이라 아이폰과 안드로이드 사용자가 서로 범프할 수 있습니다. DoubleBump는 블루투스 제조사 데이터를 사용해 서로 다른 플랫폼의 기기를 안정적으로 감지합니다.",
       "faq3.q": "범프에 성공하면 어떻게 되나요?",
@@ -1548,7 +1664,7 @@
       "faq4.q": "관계 레벨이 무엇인가요?",
       "faq4.a": "같은 사람과 계속 범프하면 여섯 단계가 열립니다: 낯선 사람 → 아는 사이 → 친구 → 친한 친구 → 베스트 프렌드 → 소울메이트. 레벨은 영원히 유지되며 범프할 때마다 쌓여갑니다.",
       "faq5.q": "원격으로 연결을 위조할 수 있나요?",
-      "faq5.a": "아니요. 원격 위조는 물리적으로 불가능합니다. BLE 근접은 30cm 이내여야 하고, 모션 시그니처는 실제 물리적 충돌과 400ms 이내로 일치해야 합니다. 실제로 그 자리에서 폰을 부딪히지 않으면 세 계층 중 어느 것도 통과할 수 없어요.",
+      "faq5.a": "사실상 불가능해요. 블루투스는 두 폰이 실제로 닿을 만큼 가까워야 하고, 모션 센서는 같은 순간의 진짜 충격을 감지해야 합니다. 두 사람이 실제로 그 자리에서 폰을 부딪히지 않으면 이 조건들이 맞아떨어지지 않아요.",
       "faq6.q": "DoubleBump는 무료인가요?",
       "faq6.a": "네. DoubleBump는 iOS와 안드로이드에서 무료입니다. 연결되지 않은 사용자의 잠긴 프로필 정보는 짧은 보상형 광고를 시청하면 열어볼 수 있습니다.",
 

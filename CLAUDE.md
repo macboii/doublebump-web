@@ -26,8 +26,8 @@ sitemap.xml       # URL list for search engines
 assets/
   og-image.png    # 1200×630 social share image (source: og-image.source.html)
   features/       # portrait App Store shots, EN + `-ko` pair each (#showcase section)
-  screens/        # portrait app screenshot WebP (#screens section)
-  demo/           # bump-demo.mp4 + poster — real footage in #how
+  screens/        # portrait app screenshots, EN + `-ko` pair each (#screens section)
+  demo/           # bump-demo.mp4 + poster — real footage in #tryit
 CLAUDE.md         # this file
 .claude/
   commands/       # slash commands (legacy — prefer skills/)

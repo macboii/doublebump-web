@@ -38,9 +38,9 @@ Hero uses `maxGap: 28`, how-section `maxGap: 26`. There is **no CSS transition**
 - **Hero**: `render(0,1)` → wait 280ms → `tap(1.08, flash)` → wait 120ms → `tap(1.13, flash)` → show "Connected!" → wait 1600ms → fade → wait 650ms → repeat
 - **How**: `render(0,1)`, screens off, step 1 → wait 800ms → step 2 + `tap(1.07)` → wait 120ms → `tap(1.10)` → screens on, step 3 → wait 1800ms → screens off → wait 400ms → repeat
 
-## Demo video (`#how`)
+## Demo video (`#tryit`)
 
-The real footage in `#how` is **not** part of the pixel animation system — it is a plain looping `<video autoplay muted loop playsinline>`. Its own bottom `<script>` swaps it to a paused clip with `controls` when `prefers-reduced-motion: reduce` matches. The pixel loops keep running regardless; only the video honours the preference.
+The real footage in `#tryit` (right after the hero) is **not** part of the pixel animation system — it is a plain looping `<video autoplay muted loop playsinline>`. Its own bottom `<script>` swaps it to a paused clip with `controls` when `prefers-reduced-motion: reduce` matches. The pixel loops keep running regardless; only the video honours the preference. `#how`, further down the page, covers the same 3 steps in text/animation form but does not repeat the video.
 
 ## Adding animations
 
