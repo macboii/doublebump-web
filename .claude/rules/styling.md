@@ -39,6 +39,7 @@ All colors are defined in `:root`. Never hardcode hex values inline — always u
 - Showcase banners (`.showcase-shot`): same card frame with `overflow: hidden; line-height: 0`; images are `width: 100%; height: auto`. The shots are portrait, so the grid is an explicit `repeat(4, minmax(0, 1fr))` dropping to `repeat(2, …)` under 500px — `auto-fit` collapses to one full-width column on phones and makes each shot ~760px tall.
 - App screenshots (`.screen-frame`): `border-radius: 22px` phone frame, same `overflow: hidden; line-height: 0`; each `.screen-item` stacks the frame over a `.screen-cap-title` + `.screen-cap-desc` caption in a `repeat(auto-fit, minmax(180px, 1fr))` grid.
 - Demo video (`.demo-video` in `#tryit`): same card frame, `max-width: 480px`, with a `.demo-cap` caption in `var(--dim)`.
+- QR codes (`.qr-code` in `#cta`): the one place a light box sits directly on the dark page — QR modules need real white to stay scannable, so it's `background: #fff` with `padding: 8px`, not the usual `var(--card)`. Same border/radius as the other frames.
 
 ## Narrative sections
 

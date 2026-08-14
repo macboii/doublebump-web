@@ -920,6 +920,37 @@
       padding: 80px 24px 100px;
     }
 
+    .qr-row {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .qr-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qr-code {
+      width: 128px;
+      height: 128px;
+      border-radius: 14px;
+      border: 1px solid #2a2a2a;
+      /* QR modules need a real white background to stay scannable, so this
+         is one of the few places a light box sits directly on the dark page. */
+      background: #fff;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    .qr-label {
+      font-size: 12px;
+      color: var(--dim);
+    }
+
     /* ─── FOOTER ─────────────────────────────────── */
     footer {
       border-top: 1px solid #1e1e1e;
@@ -1543,6 +1574,23 @@
       <span data-i18n="btn.googleplay">Google Play</span>
     </a>
   </div>
+
+  <div class="qr-row">
+    <div class="qr-item">
+      <img class="qr-code" src="assets/qr/appstore-qr.webp" width="640" height="640" loading="lazy" decoding="async"
+           data-i18n-src="assets/qr/appstore-qr-ko.webp"
+           data-i18n-alt="스캔해서 앱스토어에서 다운로드"
+           alt="Scan to download DoubleBump on the App Store" />
+      <span class="qr-label" data-i18n="cta.qr.ios">Scan for iPhone</span>
+    </div>
+    <div class="qr-item">
+      <img class="qr-code" src="assets/qr/googleplay-qr.webp" width="640" height="640" loading="lazy" decoding="async"
+           data-i18n-src="assets/qr/googleplay-qr-ko.webp"
+           data-i18n-alt="스캔해서 Google Play에서 다운로드"
+           alt="Scan to download DoubleBump on Google Play" />
+      <span class="qr-label" data-i18n="cta.qr.android">Scan for Android</span>
+    </div>
+  </div>
 </section>
 
 </main>
@@ -1666,6 +1714,8 @@
       "faq6.a": "네. DoubleBump는 iOS와 안드로이드에서 무료로 사용할 수 있습니다.",
 
       "cta.sub": "iOS와 안드로이드에서 무료.",
+      "cta.qr.ios": "아이폰은 스캔하세요",
+      "cta.qr.android": "안드로이드는 스캔하세요",
 
       "foot.privacy": "개인정보 처리방침",
       "foot.terms": "이용약관",
