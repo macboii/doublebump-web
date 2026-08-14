@@ -21,6 +21,7 @@ All colors are defined in `:root`. Never hardcode hex values inline — always u
 - **Pixel font**: `"Press Start 2P", monospace` — applied via `.pixel` class only. Use for: hero title, tagline, section labels, step numbers, badges.
 - **Body font**: `-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif` — everything else.
 - Use `clamp()` for responsive font sizes: `clamp(min, preferred-vw, max)`.
+- `body { word-break: keep-all; overflow-wrap: break-word; }` — global, not scoped to `lang="ko"`. Without it, Korean text wraps mid-syllable (기본값이 음절 단위로 줄바꿈) inside narrow cards like `.stage`/`.step`; `keep-all` wraps at word (어절) boundaries instead, with `overflow-wrap: break-word` as a fallback if a single word still can't fit. No effect on English wrapping.
 
 ## Spacing & layout
 

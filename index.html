@@ -233,6 +233,10 @@
       color: var(--white);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       overflow-x: hidden;
+      /* Korean wraps at word (어절) boundaries, not mid-syllable; falls back
+         to breaking only if a single word can't fit its container. */
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
 
     /* ─── PIXEL FONT ─────────────────────────────── */
