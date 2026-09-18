@@ -52,7 +52,7 @@ CLAUDE.md         # this file
 ## App Store
 
 - iOS App: `https://apps.apple.com/app/id6770075271`
-- Contact: bangcoderpro@gmail.com
+- Contact: sung.bang@doublebump.com
 - Legal: `https://macboii.github.io/doublebump-legal/`
 
 ## Deploy
