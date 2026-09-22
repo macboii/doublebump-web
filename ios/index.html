@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting to the App Store — DoubleBump</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BP8MZZ3QJE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-BP8MZZ3QJE');
+  </script>
+
+  <noscript><meta http-equiv="refresh" content="0;url=https://apps.apple.com/app/id6770075271" /></noscript>
+</head>
+<body>
+Redirecting to the App Store&hellip;
+<script>
+  // Cold-outreach tracking redirect: doublebump.com/ios?utm_... fires a GA4
+  // store_redirect event, then forwards to the real App Store listing.
+  // This measures the click, not an install — iOS has no install-referrer
+  // equivalent to Android's, so don't treat this as install attribution.
+  var DEST = 'https://apps.apple.com/app/id6770075271';
+
+  var params = new URLSearchParams(location.search);
+  var eventParams = { platform: 'ios' };
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function (key) {
+    var val = params.get(key);
+    if (val) eventParams[key] = val;
+  });
+
+  var redirected = false;
+  function goToStore() {
+    if (redirected) return;
+    redirected = true;
+    location.href = DEST;
+  }
+
+  if (typeof gtag === 'function') {
+    eventParams.event_callback = goToStore;
+    eventParams.event_timeout = 400;
+    gtag('event', 'store_redirect', eventParams);
+  }
+  // Never let a blocked/slow/missing GA hit (ad blockers, offline gtag.js)
+  // strand the visitor on this page — always land on the Store.
+  setTimeout(goToStore, 400);
+</script>
+</body>
+</html>
