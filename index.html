@@ -2069,5 +2069,25 @@
     demoVideo.pause();
   }
 </script>
+
+<!-- ═══════════════════════════════════════════════ STORE CTA CLICK TRACKING -->
+<script>
+  // GA4 events for the App Store / Google Play CTAs (#hero, #tryit, #cta all
+  // share the same .store-buttons markup). Uses the gtag() already loaded in
+  // <head> — no separate GA install. No PII, just platform + section.
+  document.querySelectorAll('.store-buttons a').forEach(a => {
+    const isAppStore = a.href.includes('apps.apple.com');
+    const isGooglePlay = a.href.includes('play.google.com');
+    if (!isAppStore && !isGooglePlay) return;
+    const ctaLocation = a.closest('section')?.id || 'unknown';
+    a.addEventListener('click', () => {
+      if (typeof gtag !== 'function') return;
+      gtag('event', isAppStore ? 'app_store_click' : 'google_play_click', {
+        platform: isAppStore ? 'ios' : 'android',
+        cta_location: ctaLocation
+      });
+    });
+  });
+</script>
 </body>
 </html>
