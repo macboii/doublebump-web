@@ -13,7 +13,9 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-BP8MZZ3QJE');
+    // Automatic page_view has no send guarantee before we redirect — send it
+    // ourselves below, gated the same way as store_redirect.
+    gtag('config', 'G-BP8MZZ3QJE', { send_page_view: false });
   </script>
 
   <noscript><meta http-equiv="refresh" content="0;url=https://play.google.com/store/apps/details?id=com.doublebump.android" /></noscript>
@@ -53,14 +55,27 @@ Redirecting to Google Play&hellip;
     location.href = DEST;
   }
 
+  // Session campaign attribution comes from page_view, not store_redirect —
+  // both must land before we leave, or a fast redirect can outrun gtag.js's
+  // async load and the session never gets the UTM values.
+  var pending = 0;
+  function hitDone() { if (--pending <= 0) goToStore(); }
+
   if (typeof gtag === 'function') {
-    eventParams.event_callback = goToStore;
-    eventParams.event_timeout = 400;
-    gtag('event', 'store_redirect', eventParams);
+    pending = 2;
+    gtag('event', 'page_view', Object.assign({
+      page_location: location.href,
+      page_title: document.title,
+      event_callback: hitDone
+    }, eventParams));
+
+    var redirectParams = Object.assign({}, eventParams);
+    redirectParams.event_callback = hitDone;
+    gtag('event', 'store_redirect', redirectParams);
   }
   // Never let a blocked/slow/missing GA hit (ad blockers, offline gtag.js)
   // strand the visitor on this page — always land on the Store.
-  setTimeout(goToStore, 400);
+  setTimeout(goToStore, 800);
 </script>
 </body>
 </html>
