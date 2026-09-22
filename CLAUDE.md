@@ -55,6 +55,10 @@ CLAUDE.md         # this file
 - Contact: sung.bang@doublebump.com
 - Legal: `https://macboii.github.io/doublebump-legal/`
 
+## Analytics
+
+- Google Analytics 4 (`gtag.js`), measurement ID `G-BP8MZZ3QJE` — installed in `<head>` of every page (`index.html` + all four legal pages). See [rules/architecture.md](.claude/rules/architecture.md) for placement convention.
+
 ## Deploy
 
 No build step. Deploy `index.html` directly.

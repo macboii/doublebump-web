@@ -16,6 +16,8 @@ Order inside `index.html`:
 2. `<body>` — HTML sections in page order (hero → tryit → why → concept → how → showcase → features → screens → value → security → faq → vision → cta → footer)
 3. `<script>` — all JS at the bottom, no inline handlers
 
+**Analytics tag**: every page (`index.html` + the four legal pages) loads the GA4 `gtag.js` snippet immediately after `<title>` in `<head>`, measurement ID `G-BP8MZZ3QJE`. Add the same snippet to any new page added to the site.
+
 ## Section IDs
 
 The page tells one story in order: **proof → why → what → how → value → vision.** The real demo video and a friend-focused CTA sit directly after the hero (`#tryit`), before the philosophical WHY — a first-time visitor sees proof and gets a concrete "do this now" action before the narrative content. `#how` still explains the 3-step flow but no longer carries the video, so don't re-add it there.
