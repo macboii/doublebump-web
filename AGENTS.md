@@ -43,7 +43,7 @@ AGENTS.md         # this file
 ## App Store
 
 - iOS App: `https://apps.apple.com/app/id6770075271`
-- Contact: sung.bang@doublebump.com
+- Contact: bangcoderpro@gmail.com
 - Legal: `https://macboii.github.io/doublebump-legal/`
 
 ## Deploy
