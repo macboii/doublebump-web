@@ -28,6 +28,38 @@ const SOCIAL_URL = {
   youtube: (h) => `https://youtube.com/@${h}`,
   threads: (h) => `https://threads.net/@${h}`,
 };
+// 소속 로고는 DoubleBump Storage만 — 서버도 같은 제약을 건다(profile_cards_org_logo_check)
+const LOGO_RE = /^https:\/\/dbzsuwxpxipoozeevwbi\.supabase\.co\/storage\/v1\/object\/public\/avatars\/[A-Za-z0-9\/_.?=&-]+$/;
+const ORG_LABEL = {
+  company: { ko: "회사", en: "Company" }, school: { ko: "학교", en: "School" },
+  organization: { ko: "단체", en: "Organization" }, other: { ko: "기타", en: "Other" },
+};
+
+// 기본 판 + 추가 언어 판 1개(명함 P8). `?v=a`/`?v=p`로 고르거나, 없으면 방문자 브라우저 언어가 추가 언어와 같을 때 추가 언어 판
+function pickVersion(card, request) {
+  const q = new URL(request.url).searchParams.get("v");
+  const alt = card.alt && card.alt_lang && Object.keys(card.alt).length ? card.alt : null;
+  const lang = (request.headers.get("accept-language") || "").slice(0, 2).toLowerCase();
+  const useAlt = alt && (q === "a" || (q !== "p" && lang === card.alt_lang));
+  return {
+    useAlt: !!useAlt, hasAlt: !!alt,
+    name: (useAlt && alt.display_name) || card.display_name,
+    headline: (useAlt && alt.headline) || card.headline,
+    company: (useAlt && alt.company) || card.company,
+    address: (useAlt && alt.address) || card.address,
+  };
+}
+
+// +821012345678 → +82 10 1234 5678 (표시만, 링크 값은 그대로)
+function prettyPhone(p) {
+  const m = /^\+82(2|\d{2})(\d{3,4})(\d{4})$/.exec(p || "");
+  return m ? `+82 ${m[1]} ${m[2]} ${m[3]}` : p;
+}
+
+function langName(code) {
+  try { return new Intl.DisplayNames([code], { type: "language" }).of(code) || code; } catch (_) { return code; }
+}
+
 const SOCIAL_LABEL = { instagram: "Instagram", x: "X", linkedin: "LinkedIn", tiktok: "TikTok", github: "GitHub", youtube: "YouTube", threads: "Threads" };
 
 export async function onRequestGet(context) {
@@ -42,7 +74,10 @@ export async function onRequestGet(context) {
   const cache = caches.default;
   // 캐시 키에 언어를 넣는다 — HTML이 Accept-Language(ko/en)에 따라 달라지므로 URL만으로 캐시하면 섞인다
   const keyUrl = new URL(request.url);
-  keyUrl.search = wantsVcf ? "" : `?lang=${ko ? "ko" : "en"}`;
+  // 언어 판(?v)과 방문자 언어에 따라 결과가 달라지므로 둘 다 키에 넣는다
+  const v = new URL(request.url).searchParams.get("v") || "";
+  const al = (request.headers.get("accept-language") || "").slice(0, 2).toLowerCase();
+  keyUrl.search = `?lang=${encodeURIComponent(al)}&v=${encodeURIComponent(v)}`;
   const cacheKey = new Request(keyUrl.toString(), { method: "GET" });
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
@@ -60,29 +95,44 @@ export async function onRequestGet(context) {
   }
   if (!card) return notFound(ko);
 
-  const response = wantsVcf ? vcardResponse(card, raw) : htmlResponse(card, raw, ko, request.url);
+  const ver = pickVersion(card, request);
+  const response = wantsVcf ? vcardResponse(card, raw, ver) : htmlResponse(card, raw, ko, request.url, ver);
   context.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
 }
 
 // ── HTML ──────────────────────────────────────────────────────────────────
 
-function htmlResponse(card, handle, ko, url) {
+function htmlResponse(card, handle, ko, url, ver) {
   const t = ko
     ? { save: "연락처에 저장", saveSub: "회원가입 없이 연락처 저장", label: "Digital Profile Card", share: "공유",
         joinTitle: (n) => `${n}님의 인맥이 되어 보세요`,
         joinBody: (n) => `DoubleBump에 가입하고 ${n}님을 만나 휴대폰을 두 번 부딪히면(범프) 바로 인맥으로 연결돼요. 인맥이 되면 ${n}님의 인맥도 확인할 수 있어요.`,
-        download: "DoubleBump 다운로드", stores: "iPhone · Android 무료" }
+        download: "DoubleBump 다운로드", stores: "iPhone · Android 무료",
+        mobile: "휴대폰", office: "회사 전화", fax: "팩스", email: "이메일", address: "주소", website: "웹사이트" }
     : { save: "Save to Contacts", saveSub: "No sign-up needed", label: "Digital Profile Card", share: "Share",
         joinTitle: (n) => `Become ${n}'s connection`,
         joinBody: (n) => `Join DoubleBump, then bump phones twice when you meet ${n} to connect instantly. Once connected, you can see ${n}'s connections too.`,
-        download: "Download DoubleBump", stores: "Free on iPhone · Android" };
-  const name = esc(card.display_name || handle);
-  const sub = [card.headline, card.company, card.city].filter(Boolean).map(esc).join(" · ");
+        download: "Download DoubleBump", stores: "Free on iPhone · Android",
+        mobile: "Mobile", office: "Office", fax: "Fax", email: "Email", address: "Address", website: "Website" };
+  const name = esc(ver.name || handle);
   const contacts = [];
-  if (card.contact_email) contacts.push(`<a class="row" href="mailto:${escAttr(card.contact_email)}">${esc(card.contact_email)}</a>`);
-  if (card.phone) contacts.push(`<a class="row" href="tel:${escAttr(card.phone)}">${esc(card.phone)}</a>`);
-  if (card.website && /^https:\/\//.test(card.website)) contacts.push(`<a class="row" href="${escAttr(card.website)}" rel="noopener nofollow">${esc(card.website.replace(/^https:\/\//, ""))}</a>`);
+  const row = (label, value, href) => href
+    ? `<a class="row" href="${escAttr(href)}" rel="noopener nofollow"><span class="k">${label}</span><span class="v">${esc(value)}</span></a>`
+    : `<div class="row"><span class="k">${label}</span><span class="v">${esc(value)}</span></div>`;
+  if (card.phone) contacts.push(row(t.mobile, prettyPhone(card.phone), `tel:${card.phone}`));
+  if (card.office_phone) contacts.push(row(t.office, prettyPhone(card.office_phone), `tel:${card.office_phone}`));
+  if (card.fax) contacts.push(row(t.fax, prettyPhone(card.fax), null));
+  if (card.contact_email) contacts.push(row(t.email, card.contact_email, `mailto:${card.contact_email}`));
+  if (ver.address) contacts.push(row(t.address, ver.address, `https://maps.google.com/?q=${encodeURIComponent(ver.address)}`));
+  if (card.website && /^https:\/\//.test(card.website)) contacts.push(row(t.website, card.website.replace(/^https:\/\//, ""), card.website));
+  const logo = card.org_logo_url && LOGO_RE.test(card.org_logo_url)
+    ? `<img class="logo" src="${escAttr(card.org_logo_url)}" alt="" />` : "";
+  const orgType = card.org_type && ORG_LABEL[card.org_type] ? ORG_LABEL[card.org_type][ko ? "ko" : "en"] : "";
+  const org = ver.company || logo
+    ? `<div class="org">${logo}<div><div class="org-name">${esc(ver.company || "")}</div>${orgType ? `<div class="org-type">${esc(orgType)}</div>` : ""}</div></div>` : "";
+  const langSwitch = ver.hasAlt
+    ? `<div class="langs"><a class="${ver.useAlt ? "" : "on"}" href="?v=p">${esc(langName(card.primary_lang || (ko ? "ko" : "en")))}</a><a class="${ver.useAlt ? "on" : ""}" href="?v=a">${esc(langName(card.alt_lang))}</a></div>` : "";
   const socials = Object.entries(card.socials || {})
     .filter(([k, v]) => v && SOCIAL_URL[k])
     .map(([k, v]) => `<a class="chip" href="${escAttr(SOCIAL_URL[k](encodeURIComponent(v)))}" rel="noopener nofollow">${esc(SOCIAL_LABEL[k])}</a>`)
@@ -98,8 +148,8 @@ function htmlResponse(card, handle, ko, url) {
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex" />
 <title>${name} · DoubleBump</title>
-<meta property="og:title" content="${escAttr(card.display_name || handle)} · DoubleBump" />
-<meta property="og:description" content="${escAttr([card.headline, card.company].filter(Boolean).join(" · ") || t.label)}" />
+<meta property="og:title" content="${escAttr(ver.name || handle)} · DoubleBump" />
+<meta property="og:description" content="${escAttr([ver.headline, ver.company].filter(Boolean).join(" · ") || t.label)}" />
 <meta property="og:url" content="${escAttr(url)}" />
 <meta name="apple-itunes-app" content="app-id=6770075271" />
 <link rel="icon" href="/logo.png" />
@@ -108,7 +158,19 @@ function htmlResponse(card, handle, ko, url) {
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;word-break:keep-all;overflow-wrap:break-word}
 main{max-width:460px;margin:0 auto;padding:32px 16px 48px}
-.card{background:var(--card);border:1px solid #2a2a2a;border-radius:18px;padding:28px 20px;text-align:center}
+.card{background:var(--card);border:1px solid #2a2a2a;border-radius:18px;padding:24px 20px;text-align:left}
+.org{display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.logo{width:40px;height:40px;border-radius:9px;object-fit:contain;background:#fff}
+.org-name{font-weight:700;font-size:15px}
+.org-type{color:var(--dim);font-size:12px}
+.who{display:flex;align-items:center;gap:14px;margin:0 0 16px}
+.who .avatar{margin:0;width:72px;height:72px}
+.title{color:var(--yellow);font-size:15px;margin:2px 0 0}
+.langs{display:flex;gap:0;background:#000;border-radius:999px;overflow:hidden}
+.langs a{color:var(--gray);text-decoration:none;font-size:12px;font-weight:700;padding:5px 10px}
+.langs a.on{background:var(--yellow);color:#000;border-radius:999px}
+.k{display:block;color:var(--dim);font-size:12px}
+.v{display:block;white-space:pre-line}
 .top{display:flex;justify-content:space-between;align-items:center;color:var(--dim);font-size:13px;margin-bottom:20px}
 .top button{background:none;border:0;color:var(--gray);font-size:13px;cursor:pointer}
 .avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;background:var(--card2)}
@@ -118,7 +180,8 @@ h1{font-size:24px;margin:0 0 6px}
 .bio{color:var(--white);font-size:15px;margin:0 0 18px;white-space:pre-line}
 .rows{display:flex;flex-direction:column;gap:8px;margin:0 0 16px}
 .row{display:block;background:var(--card2);border-radius:12px;padding:12px;color:var(--white);text-decoration:none;font-size:15px}
-.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.save,.save-sub{text-align:center}
 .chip{border:1px solid #2a2a2a;border-radius:999px;padding:6px 12px;color:var(--gray);text-decoration:none;font-size:13px}
 .save{display:block;background:var(--yellow);color:#000;font-weight:800;text-decoration:none;border-radius:14px;padding:14px;font-size:16px}
 .save-sub{color:var(--dim);font-size:13px;margin:8px 0 0}
@@ -133,14 +196,13 @@ h1{font-size:24px;margin:0 0 6px}
 <body>
 <main>
   <div class="card">
-    <div class="top"><span>doublebump.com/card/${esc(handle)}</span><button type="button" id="share">${t.share}</button></div>
-    ${avatar}
-    <h1>${name}</h1>
-    ${sub ? `<p class="sub">${sub}</p>` : ""}
+    <div class="top"><span>doublebump.com/card/${esc(handle)}</span><span>${langSwitch}<button type="button" id="share">${t.share}</button></span></div>
+    ${org}
+    <div class="who">${avatar}<div><h1>${name}</h1>${ver.headline ? `<p class="title">${esc(ver.headline)}</p>` : ""}<p class="sub">@${esc(handle)}</p></div></div>
     ${card.bio ? `<p class="bio">${esc(card.bio)}</p>` : ""}
     ${contacts.length ? `<div class="rows">${contacts.join("")}</div>` : ""}
     ${socials ? `<div class="chips">${socials}</div>` : ""}
-    <a class="save" href="/card/${escAttr(handle)}.vcf">${t.save}</a>
+    <a class="save" href="/card/${escAttr(handle)}.vcf${ver.useAlt ? "?v=a" : ""}">${t.save}</a>
     <p class="save-sub">${t.saveSub}</p>
   </div>
   <section class="join">
@@ -164,13 +226,16 @@ if(/android/i.test(navigator.userAgent)){document.getElementById('download').hre
 
 // ── vCard 3.0 (RFC 2426 + RFC 6350 이스케이프) ────────────────────────────
 
-function vcardResponse(card, handle) {
+function vcardResponse(card, handle, ver) {
   const lines = ["BEGIN:VCARD", "VERSION:3.0"];
-  const name = card.display_name || handle;
+  const name = ver.name || handle;
   lines.push(`N:;${v(name)};;;`, `FN:${v(name)}`);
-  if (card.company) lines.push(`ORG:${v(card.company)}`);
-  if (card.headline) lines.push(`TITLE:${v(card.headline)}`);
+  if (ver.company) lines.push(`ORG:${v(ver.company)}`);
+  if (ver.headline) lines.push(`TITLE:${v(ver.headline)}`);
   if (card.phone) lines.push(`TEL;TYPE=CELL:${v(card.phone)}`);
+  if (card.office_phone) lines.push(`TEL;TYPE=WORK,VOICE:${v(card.office_phone)}`);
+  if (card.fax) lines.push(`TEL;TYPE=WORK,FAX:${v(card.fax)}`);
+  if (ver.address) lines.push(`ADR;TYPE=WORK:;;${v(ver.address)};;;;`);
   if (card.contact_email) lines.push(`EMAIL;TYPE=INTERNET:${v(card.contact_email)}`);
   if (card.website && /^https:\/\//.test(card.website)) lines.push(`URL:${v(card.website)}`);
   for (const [k, h] of Object.entries(card.socials || {})) {
