@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.doublebump.android",
+      "sha256_cert_fingerprints": [
+        "2E:EA:EE:7D:81:00:62:A1:F0:6C:59:C0:AD:9F:C9:7B:EE:0F:73:77:39:39:C0:F3:4E:8D:87:23:97:DF:B0:A6",
+        "F6:D9:89:7C:74:34:76:29:0A:73:E4:5B:9E:17:BD:64:30:0E:44:4A:76:B2:F2:7A:6C:6C:41:CC:0F:B2:A2:55"
+      ]
+    }
+  }
+]
