@@ -133,8 +133,8 @@
 
   <h3>Device &amp; Technical</h3>
   <ul>
-    <li>Device UUID — generated locally and stored in the device Keychain; used to support bump matching and device integrity</li>
-    <li>APNs push token — to deliver bump notifications</li>
+    <li>Device UUID — generated locally and stored securely on your device (iOS Keychain / Android encrypted storage); used to support bump matching and device integrity</li>
+    <li>Push token (Apple Push Notification service on iOS, Firebase Cloud Messaging on Android) — to deliver notifications</li>
     <li>App version, OS version — for debugging and crash reporting</li>
   </ul>
 
@@ -177,7 +177,7 @@
 
   <h3>Chat Messages</h3>
   <ul>
-    <li>Text messages you send and receive — DoubleBump lets you message any user who hasn't blocked you, not only people you've bumped</li>
+    <li>Text messages you send and receive — you can message people you have connected with by bumping in person. Earlier conversations with anyone else stay readable, but new messages can't be sent to them</li>
     <li>Search terms you enter to find other users by nickname, to start a conversation</li>
     <li>Block and report actions — if you report another user, the reason you select and any details you add are shared with us for review</li>
   </ul>
@@ -196,9 +196,9 @@
     <li>To show your public web card and its contact file (vCard) when you turn the web card on</li>
     <li>To display your profile and social links to users you have bumped</li>
     <li>To let you discover nearby DoubleBump users through Radar</li>
-    <li>To enable 1:1 messaging between users, including people you haven't bumped</li>
+    <li>To enable 1:1 messaging between people who have connected by bumping</li>
     <li>To review reports and enforce blocks between users</li>
-    <li>To send push notifications about new bumps, messages, and level-ups</li>
+    <li>To send push notifications about new connections and messages</li>
     <li>To show your bump map and bump memory history</li>
     <li>To serve voluntary rewarded video ads that unlock profile features</li>
     <li>To improve app performance and fix bugs</li>
@@ -226,7 +226,8 @@
   <div class="card"><strong>Google AdMob</strong><span>Rewarded video ads; may collect device identifiers and ad interaction data</span><br><a href="https://policies.google.com/privacy">policies.google.com/privacy</a></div>
   <div class="card"><strong>Cloudflare</strong><span>Hosting for doublebump.com and web cards; processes standard request data such as IP address for security and rate limiting</span><br><a href="https://www.cloudflare.com/privacypolicy/">cloudflare.com/privacypolicy</a></div>
   <div class="card"><strong>Firebase (Google)</strong><span>Crash reporting and anonymous usage analytics</span><br><a href="https://policies.google.com/privacy">policies.google.com/privacy</a></div>
-  <div class="card"><strong>Apple Push Notification Service</strong><span>Delivery of push notifications</span><br><a href="https://apple.com/legal/privacy">apple.com/legal/privacy</a></div>
+  <div class="card"><strong>Apple Push Notification Service (iOS)</strong><span>Delivery of push notifications</span><br><a href="https://apple.com/legal/privacy">apple.com/legal/privacy</a></div>
+  <div class="card"><strong>Firebase Cloud Messaging (Android)</strong><span>Delivery of push notifications</span><br><a href="https://policies.google.com/privacy">policies.google.com/privacy</a></div>
   <p style="margin-top:12px;">We may disclose data if required by law or to protect the safety of users.</p>
 
   <h2>4. Data Retention</h2>
@@ -250,7 +251,7 @@
     <li><strong>Location:</strong> Off by default — turn meeting-place recording on or off in Settings, or revoke permission in your phone's settings</li>
     <li><strong>Radar:</strong> Off by default — turn it on or off anytime in Settings → Radar</li>
     <li><strong>Chat:</strong> Block or report another user from any conversation; a blocked user cannot message you and disappears from your Radar and nearby lists</li>
-    <li><strong>Push Notifications:</strong> Disable in Settings → Push notifications, or in iOS Settings</li>
+    <li><strong>Push Notifications:</strong> Disable in Settings → Push notifications, or in your phone's settings</li>
     <li><strong>Account Deletion:</strong> Go to Settings → Delete Account to permanently delete all your data. This action is irreversible.</li>
   </ul>
 
