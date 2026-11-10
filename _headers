@@ -1,0 +1,4 @@
+# Cloudflare Pages headers — Universal Links 파일은 리다이렉트 없이 application/json 이어야 한다
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600

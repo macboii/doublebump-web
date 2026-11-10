@@ -9,7 +9,8 @@ Static landing page for the DoubleBump iOS app. Single `index.html` file with em
 - **HTML/CSS/JS** — single `index.html`, zero dependencies
 - **Font** — Press Start 2P via Google Fonts (pixel aesthetic)
 - **Animations** — vanilla JS `requestAnimationFrame` loops
-- **Hosting** — intended for GitHub Pages or Vercel static
+- **Hosting** — **Cloudflare Pages** (project `doublebump-web`, confirmed 2026-11-10: `doublebump-web.pages.dev` serves this site, domain + registrar on Cloudflare). Pushing `main` deploys production; other branches may get preview deployments
+- **Pages Functions** — `functions/card/[handle].js` serves the Digital Profile Card web card (`/card/{handle}`, `/card/{handle}.vcf`). Data comes only from the Supabase Edge Function `web-card` via the `WEB_CARD_KEY` secret (env vars `WEB_CARD_ENDPOINT`, `WEB_CARD_KEY`). Spec: DoubleBump-ios `.claude/rules/profile-card.md` §9
 
 ## File Structure
 
@@ -19,6 +20,9 @@ privacy.html      # Privacy Policy page
 terms.html        # Terms of Service page
 delete-account.html  # Account deletion instructions page
 child-safety.html # Child Safety Standards page (Google Play compliance)
+functions/card/[handle].js  # /card/{handle} web card + .vcf (Pages Function, no GA)
+.well-known/apple-app-site-association  # Universal Links for /card/* (JSON, see _headers)
+_headers          # Cloudflare Pages headers (AASA content-type)
 ios/index.html    # /ios tracking redirect — GA4 store_redirect event, then → App Store
 android/index.html # /android tracking redirect — GA4 store_redirect event + Play Install Referrer, then → Google Play
 logo.png          # 1024×1024 app icon (favicon + JSON-LD image)
@@ -69,5 +73,5 @@ CLAUDE.md         # this file
 
 No build step. Deploy `index.html` directly.
 
-- **GitHub Pages**: push to `main`, enable Pages from root
+- **Cloudflare Pages**: push to `main` → production deploy (git-connected). Do not push card/Universal Link changes without approval
 - **Vercel**: drag-and-drop or connect repo — auto-detects static
