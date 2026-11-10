@@ -4,6 +4,7 @@
       {
         "appIDs": ["C99FYNBPWW.appscape.DoubleBump"],
         "components": [
+          { "/": "/card/*.vcf", "exclude": true, "comment": "vCard download must stay in the browser (Save to Contacts)" },
           { "/": "/card/*", "comment": "Digital Profile Card — opens the card in the app when installed" }
         ]
       }
