@@ -69,8 +69,14 @@ export async function onRequestGet(context) {
 
 function htmlResponse(card, handle, ko, url) {
   const t = ko
-    ? { save: "연락처에 저장", saveSub: "회원가입 없이 연락처 저장", create: "나도 DoubleBump 명함 만들기", label: "Digital Profile Card", share: "공유" }
-    : { save: "Save to Contacts", saveSub: "No sign-up needed", create: "Create your DoubleBump card", label: "Digital Profile Card", share: "Share" };
+    ? { save: "연락처에 저장", saveSub: "회원가입 없이 연락처 저장", label: "Digital Profile Card", share: "공유",
+        joinTitle: (n) => `${n}님의 인맥이 되어 보세요`,
+        joinBody: (n) => `DoubleBump에 가입하고 ${n}님을 만나 휴대폰을 두 번 부딪히면(범프) 바로 인맥으로 연결돼요. 인맥이 되면 ${n}님의 인맥도 확인할 수 있어요.`,
+        download: "DoubleBump 다운로드", stores: "iPhone · Android 무료" }
+    : { save: "Save to Contacts", saveSub: "No sign-up needed", label: "Digital Profile Card", share: "Share",
+        joinTitle: (n) => `Become ${n}'s connection`,
+        joinBody: (n) => `Join DoubleBump, then bump phones twice when you meet ${n} to connect instantly. Once connected, you can see ${n}'s connections too.`,
+        download: "Download DoubleBump", stores: "Free on iPhone · Android" };
   const name = esc(card.display_name || handle);
   const sub = [card.headline, card.company, card.city].filter(Boolean).map(esc).join(" · ");
   const contacts = [];
@@ -116,7 +122,12 @@ h1{font-size:24px;margin:0 0 6px}
 .chip{border:1px solid #2a2a2a;border-radius:999px;padding:6px 12px;color:var(--gray);text-decoration:none;font-size:13px}
 .save{display:block;background:var(--yellow);color:#000;font-weight:800;text-decoration:none;border-radius:14px;padding:14px;font-size:16px}
 .save-sub{color:var(--dim);font-size:13px;margin:8px 0 0}
-.create{display:block;margin:28px auto 0;color:var(--dim);font-size:13px;text-align:center}
+.join{margin:20px 0 0;background:var(--card);border:1px solid #2a2a2a;border-radius:18px;padding:22px 20px;text-align:center}
+.join h2{font-size:18px;margin:0 0 8px}
+.join p{color:var(--gray);font-size:14px;line-height:1.5;margin:0 0 16px}
+.download{display:block;border:1.5px solid var(--yellow);color:var(--yellow);font-weight:800;text-decoration:none;border-radius:14px;padding:13px;font-size:16px}
+.stores{color:var(--dim);font-size:12px;margin:8px 0 0}
+.stores a{color:var(--dim)}
 </style>
 </head>
 <body>
@@ -132,14 +143,19 @@ h1{font-size:24px;margin:0 0 6px}
     <a class="save" href="/card/${escAttr(handle)}.vcf">${t.save}</a>
     <p class="save-sub">${t.saveSub}</p>
   </div>
-  <a class="create" id="create" href="${APP_STORE}">${t.create}</a>
+  <section class="join">
+    <h2>${t.joinTitle(name)}</h2>
+    <p>${t.joinBody(name)}</p>
+    <a class="download" id="download" href="${APP_STORE}">${t.download}</a>
+    <p class="stores">${t.stores} — <a href="${APP_STORE}">App Store</a> · <a href="${escAttr(PLAY_STORE)}">Google Play</a></p>
+  </section>
 </main>
 <script>
 document.getElementById('share').addEventListener('click',function(){
   if(navigator.share){navigator.share({title:document.title,url:location.href}).catch(function(){});}
   else if(navigator.clipboard){navigator.clipboard.writeText(location.href);}
 });
-if(/android/i.test(navigator.userAgent)){document.getElementById('create').href=${JSON.stringify(PLAY_STORE)};}
+if(/android/i.test(navigator.userAgent)){document.getElementById('download').href=${JSON.stringify(PLAY_STORE)};}
 </script>
 </body>
 </html>`;
